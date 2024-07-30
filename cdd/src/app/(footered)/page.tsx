@@ -12,7 +12,7 @@ export default function Cdd() {
         <Header />
         <div className="">
           <SelectCycle />
-          <CardComponent title="Receber ofertas" link="/pedidos" />
+          <CardComponent isSelectedCycle={true} title="Receber ofertas" link="/ofertas" />
           <CardComponent title="Montar sacola" link="/montar-sacola" />
           <CardComponent title="Enviar sacola" link="/enviar-sacola" />
           <CardComponent title="Gerar relatório" link="/extrato-entregas" />
