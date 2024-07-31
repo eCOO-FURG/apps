@@ -19,7 +19,6 @@ export default function ConfirmationModal({
       textButton1="Cancelar"
       textButton2="Imprimir"
       bgButton2="#00735E"
-      link2={link}
     />
   );
 }

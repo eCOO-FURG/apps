@@ -16,6 +16,8 @@ interface CycleData {
   offer: number[];
   order: number[];
   deliver: number[];
+  created_at: Date;
+  updated_at: Date | null
 }
 
 export default function SelectCycle() {

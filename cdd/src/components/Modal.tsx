@@ -21,8 +21,7 @@ interface ModalProps {
   textButton1: string;
   textButton2: string;
   bgButton2: string;
-  link2: string;
-  button2?: ReactNode;
+  onClick?: () => void;
 }
 
 export default function Modal({
@@ -33,8 +32,7 @@ export default function Modal({
   textButton1,
   textButton2,
   bgButton2,
-  link2,
-  button2,
+  onClick,
 }: ModalProps) {
   let [isOpen, setIsOpen] = useState(false);
 
@@ -46,10 +44,15 @@ export default function Modal({
     setIsOpen(false);
   };
 
+  const handleButtonClick = () => {
+    closeModal();
+    if (onClick) onClick();
+  };
+
   return (
     <>
       <div
-        className={`cursor-pointer w-full h-10 flex justify-center items-center bg-[${bgButton2}] rounded-md text-white font-semibold font-inter text-[15.67px]`}
+        className={`cursor-pointer w-full px-4 py-3 flex justify-center items-center bg-[${bgButton2}] rounded-md text-white font-semibold font-inter text-[15.67px]`}
         aria-label="Abrir Modal"
         onClick={openModal}
       >
@@ -83,21 +86,17 @@ export default function Modal({
               <div className="gap-2 h-[41.14px] flex flex-row justify-stretch items-center w-full font-inter font-semibold text-[15.67px]">
                 <button
                   onClick={closeModal}
-                  className="w-[50%] h-[inherit] bg-[#EEF1F4] rounded-md text-[#455154]"
+                  className="w-[50%] h-[inherit] bg-[#EEF1F4] text-[#455154] rounded-md"
                 >
                   {textButton1}
                 </button>
 
-                {button2 ? (
-                  <div className="w-[50%] h-[inherit]">{button2}</div>
-                ) : (
-                  <Link
-                    href={link2}
-                    className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
-                  >
-                    {textButton2}
-                  </Link>
-                )}
+                <button
+                  onClick={handleButtonClick}
+                  className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white`}
+                >
+                  {textButton2}
+                </button>
               </div>
             )}
           </Dialog.Panel>

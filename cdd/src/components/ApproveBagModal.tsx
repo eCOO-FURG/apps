@@ -23,8 +23,6 @@ export default function ApproveBagModal({
       textButton1="Cancelar"
       textButton2="Confirmar"
       bgButton2="#00735E"
-      button2={button2}
-      link2={link ? link : ""}
     />
   );
 }

@@ -23,8 +23,6 @@ export default function RejectBagModal({
       textButton1="Cancelar"
       textButton2="Alterar"
       bgButton2="#FF7070"
-      button2={button2}
-      link2={link ? link : ""}
     />
   );
 }

@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useState } from "react";
 import { toast } from "sonner";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import { listBags } from "@cdd/app/_actions/list-bags";
-import BagsTable from "./components/BagsTable";
+import { FarmWithOrdersTable } from "./components/FarmWithOrdersTable";
+import { fecthFarmsWithOrders } from "@cdd/app/_actions/fetch-farm-with-orders";
 
 export default function Home() {
   const [page, setPage] = useState<number>(1);
@@ -14,7 +14,7 @@ export default function Home() {
     if (page > 1) {
       setPage((prev) => prev - 1);
     }
-  };
+  };  
 
   const nextPage = async () => {
     if (!hasNextPage) return;
@@ -28,13 +28,13 @@ export default function Home() {
 
     const { id } = JSON.parse(cycle_idString);
 
-    const response = await listBags({
-      page: page + 1,
+    const nextPageData = await fecthFarmsWithOrders({
       cycle_id: id,
-      status: "PENDING",
+      page: page + 1,
+      name: ""
     });
 
-    if (response.length > 0) {
+    if (nextPageData.length > 0) {
       setPage((prev) => prev + 1);
     } else {
       setHasNextPage(false);
@@ -44,20 +44,20 @@ export default function Home() {
   return (
     <div className="w-full h-full p-5 pb-6 flex items-center flex-col">
       <div className="flex flex-col h-[18%] w-full items-center justify-end mt-4">
-        <h1 className="text-3xl font-medium text-slate-gray mb-4 text-center">Montar sacolas</h1>
+        <h1 className="text-3xl font-medium text-slate-gray mb-4 text-center">Lista de ofertas</h1>
         <span className="text-sm font-medium text-slate-gray mb-6 text-center">
-          Monte as sacolas abaixo
+          Aprove ou rejeite as ofertas abaixo:
         </span>
       </div>
       <div className="w-full h-[72%] overflow-y-auto">
-        <BagsTable page={page} />
+        <FarmWithOrdersTable page={page} />
       </div>
       <div className="w-full h-[10%] flex justify-center items-end">
         <div className="gap-4 flex">
           <button onClick={backPage}>
             <IoIosArrowBack />
           </button>
-          {page}
+            {page}
           <button onClick={nextPage}>
             <IoIosArrowForward />
           </button>
