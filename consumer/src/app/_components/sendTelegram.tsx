@@ -8,6 +8,11 @@ export default function sendTelegram() {
   const { cart } = useCartProvider();
   const [ totalPurchase, setTotalPurchase ] = useState(0);
 
+  const mapQuantity = {
+    "UNIT": 1,
+    "WEIGHT": 100
+  };
+
   useEffect(() => {
     const tg = (window as any).Telegram.WebApp;
     tg.onEvent("mainButtonClicked", sendData);
@@ -36,11 +41,7 @@ export default function sendTelegram() {
     let total = 0;
 
     cart.forEach((productCart) => {
-      if(productCart.pricing == 'UNIT'){
-        total = total + (productCart.price * productCart.quantity);
-      }else{
-        total = total + (productCart.price * (productCart.quantity / 50));
-      }
+      total = total + (productCart.price * productCart.quantity);
     });
 
     setTotalPurchase(total);
@@ -49,6 +50,10 @@ export default function sendTelegram() {
 
   const sendData = async () => {
     const tg = (window as any).Telegram.WebApp;
+
+    cart.map((productCart) => {
+      productCart.quantity = productCart.quantity * mapQuantity[productCart.pricing];
+    });
 
     const purchase = {
       products: cart,

@@ -3,16 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import Header from "../../_components/header";
 
 export default function Inicio() {
   return (
     <>
     <div className="flex flex-col w-full h-screen">
-      <div className="h-screen scroll-smooth scrol-ml-1 ml-3 mr-3 mt-3">
+      <div className="h-screen scroll-smooth">
 
-        <div className="w-full min-h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl mb-3 opacity-50">
-          <div className="flex-none w-20 min-h-20 m-2 rounded-[10px]">
+        <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px] opacity-50">
+          <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
             <Image
             className="rounded-[10px]"
             src={"/256x256_categorias.jpg"}
@@ -37,8 +36,8 @@ export default function Inicio() {
         </div>
 
         <Link href={"/produtores"}>
-        <div className="w-full min-h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl mb-3">
-          <div className="flex-none w-20 min-h-20 m-2 rounded-[10px]">
+        <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px]">
+          <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
           <Image
             className="rounded-[10px]"
             src={"/256x256_produtores.jpg"}

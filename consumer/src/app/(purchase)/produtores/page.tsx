@@ -1,13 +1,15 @@
 "use client";
 
+import { Farm, fetchFarms } from "@consumer/app/_actions/fetch-farms";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useInView } from 'react-intersection-observer';
 import { Cycle, fetchCycles } from "../../_actions/fetch-cycles";
-import { FarmOffer, fetchOffers } from "../../_actions/fetch-offers";
 export default function Produtores() {
+
   const [cycles, setcycle] = useState([] as Cycle[]);
+  const [cycleId, setCycleId] = useState('' as string);
   const [producers, setProducers] = useState([] as any[]);
   const [page, setPage] = useState(1 as number);
   const [isLoading, setIsLoading] = useState(true);
@@ -20,16 +22,23 @@ export default function Produtores() {
     })();
   }, []);
   
-  const serachProducers = async () => {
+  const searchProducers = async () => {
 
-    const cycle_id = cycles.find(
-      (cycle) => cycle.alias.toLocaleLowerCase() == "semanal"
+    // const getDay = new Date().getDay() + 1;
+    // const typeCycle = getDay != 5 ? "semanal": "diario";
+
+    const typeCycle = process.env.NEXT_PUBLIC_ENV == "dev" || process.env.NEXT_PUBLIC_ENV == "homolog" ? "livre" : "semanal";
+    
+    const cycleId = cycles.find(
+      (cycle) => cycle.alias.toLocaleLowerCase() == typeCycle
     )?.id;
 
-    const responseOffers: FarmOffer[] = await fetchOffers(cycle_id, page);
+    setCycleId(cycleId as string);
 
-    let newProducers = responseOffers.map((offer) => {
-      return { id: offer.id, name: offer.name };
+    const farms: Farm[] = await fetchFarms(cycleId, page);
+
+    let newProducers = farms.map((farm) => {
+      return { id: farm.id, name: farm.name };
     });
 
     if(newProducers.length == 0){
@@ -44,23 +53,31 @@ export default function Produtores() {
 
   useEffect(() => {
     if (inView) {
-      serachProducers();
+      searchProducers();
     }
   }, [inView, cycles])
 
 
   return (
     <>
-      <div className="w-[98%] overflow-y-scroll  scroll-smooth scrol-ml-1 ml-3 mr-3 mt-3">
+      <div className="w-full h-screen overflow-y-auto">
         {producers && producers.length !== 0
           ? producers.map((producer) => {
               return (
                 <>
-                  <Link href={`/ofertas/${producer?.id}/${producer?.name}`}>
-                    <div className="w-full min-h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl mb-3">
-                      <div className="flex-none w-20 min-h-20 bg-[#00735E] m-2 rounded-[10px]"></div>
+                  <Link href={`/ofertas/${producer?.id}/${producer?.name}/${cycleId}`}>
+                    <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px]">
+                      <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
+                      <Image
+                          src={"/produtor.jpg"}
+                          className="w-full h-full object-cover rounded-[10px]"
+                          width={80}
+                          height={80}
+                          alt={`produtor.jpg`}
+                          />
+                      </div>
                       <div className="grow flex flex-col items-center justify-center min-h-20 mt-2 mb-2">
-                        <span className="w-full text-left font-poppins text-base">
+                        <span className="w-full text-left font-poppins text-base text-[#2F4A4D]">
                           {producer.name}
                         </span>
                       </div>
