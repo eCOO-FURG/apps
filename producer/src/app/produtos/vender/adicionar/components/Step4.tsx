@@ -102,7 +102,7 @@ export default function Step4({ goNextClick, goBackClick }: FormProps) {
               </tr>
               <tr>
                 <td className="w-1/4 p-3">Preço:</td>
-                <td className="w-3/4 p-3">{priceString} / kg</td>
+                <td className="w-3/4 p-3">{priceString} / {weigth}</td>
               </tr>
               <tr>
                 <td className="w-1/4 p-3">Descrição:</td>

@@ -8,6 +8,7 @@ import {
 import { registerAgribusiness } from "./register-agribusiness/handler";
 import { createAccount } from "./account/create-account/handler";
 import { getAccount } from "./account/get-account/handler";
+import { getPrivate } from "./account/get-private/handler";
 import { loginAgribusiness } from "./account/login-agribusiness/handler";
 import { loginCDD } from "./account/login-cdd/handler";
 import { listOrders } from "./orders/list-orders/handler";
@@ -25,6 +26,7 @@ export const ACTIONS = registerActions({
   handlers: {
     "create-account": createAccount,
     "get-account": getAccount,
+    "get-private": getPrivate,
     "get-cycles": getCycles,
     "login-agribusiness": loginAgribusiness,
     "login-cdd": loginCDD,

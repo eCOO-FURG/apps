@@ -89,6 +89,16 @@ export const ecooAPIHTTPProvider: IEcooAPI = {
 
     return { data: response.data, status: 200 };
   }),
+  getPrivate: defineServiceMethod<"getPrivate">(async (access_token) => {
+    const response = await axios.get(`${process.env.API_URL}/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access_token}`,
+      },
+    });
+    
+    return { data: response.data, status: 200 };
+  }),
   getCycles: defineServiceMethod<"getCycles">(async (access_token) => {
     const response = await axios.get(`${process.env.API_URL}/cycles`, {
       headers: {

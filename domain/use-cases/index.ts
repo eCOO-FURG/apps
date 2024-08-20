@@ -4,6 +4,7 @@ import { nextCookiesStubStore } from "@shared/next/nextCookiesStubStore";
 
 import { createAccount } from "./create-user";
 import { getUser } from "./get-user";
+import { getPrivate } from "./get-private";
 import { loginCDD } from "./login-cdd";
 import { loginAgribusiness } from "./login-agribusiness";
 import { registerAgribusiness } from "./register-agribusiness";
@@ -16,6 +17,7 @@ import { getCycles } from "./get-cycles";
 const HANDLERS = {
   "create-user": createAccount,
   "get-user": getUser,
+  "get-private": getPrivate,
   "get-cycles": getCycles,
   "login-cdd": loginCDD,
   "login-agribusiness": loginAgribusiness,

@@ -57,6 +57,15 @@ export class User extends Entity<UserProps> {
     };
   }
 
+  get private() {
+    return {
+      first_name: this.props.first_name,
+      last_name: this.props.last_name,
+      email: this.props.email,
+      phone: this.props.phone,
+    };
+  }
+
   static create(
     props: Optional<UserProps, "roles" | "created_at">,
     id?: UniqueEntityID

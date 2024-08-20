@@ -72,7 +72,8 @@ export function ProductMenu() {
         <Link href={"/produtos/meus"}>
           <Button
             className="w-full bg-transparent rounded-md h-12 mb-[20px] text-[#3E5155] border-2 border-[#3E5155] font-semibold"
-            disabled={isUnderConstruction("/produtos/meus")}
+            // disabled={isUnderConstruction("/produtos/meus")}
+            disabled={true}
             href={"/produtos/meus"}
           >
             Ofertas vigentes
