@@ -19,7 +19,7 @@ export default function Login({ appID }: { appID: AppID }) {
 
         <div className="mt-6 flex justify-center">
           <span className="text-sm font-medium text-slate-gray">
-            Esqueceu a senha? <Link href={"/recuperarsenha"}>Clique aqui</Link>
+            Esqueceu a senha? <Link href={"/forgot-password"}>Clique aqui</Link>
             <span className="inter-font underline"></span>
           </span>
         </div>
