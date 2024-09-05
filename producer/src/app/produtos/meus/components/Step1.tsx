@@ -7,6 +7,8 @@ import { LuChevronLeft, LuPencil } from "react-icons/lu";
 import OldButton from "@shared/next/components/OldButton";
 import Modal from "@shared/components/Modal";
 
+import TitlePage from "../../../../../components/title";
+
 interface FormProps {
   goNextClick: () => void;
 }
@@ -21,7 +23,7 @@ export default function Step1({ goNextClick }: FormProps) {
   return (
     <div className="w-full h-screen flex flex-col items-center p-5 bg-theme-background">
       <div className="flex flex-col items-center h-1/4 justify-center mt-2 w-full space-y-5">
-        <h1 className="text-3xl text-slate-gray font-medium">Meus produtos</h1>
+        <TitlePage>Meus produtos</TitlePage>
         <span className="text-center text-slate-gray text-sm font-medium">
           Lista dos seus produtos que estão a <br />
           venda pela cooperativa
