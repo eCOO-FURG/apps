@@ -1,24 +1,24 @@
 'use client'
 
 import React, { FormEvent } from 'react';
-import TitlePage from '../../../components/title';
-import DescriptionPage from '../../../components/description';
-import Input from '../cadastrar/components/Input';
-import { registerStep1FieldsSchema } from '../cadastrar/schemas';
+import TitlePage from '@shared/components/TitlePage'
+import DescriptionPage from '@shared/components/DescriptionPage';
+import Input from '../../cadastrar/components/Input';
+import { registerStep1FieldsSchema } from '../../cadastrar/schemas';
 import Button from '@shared/components/Button';
-import Link from 'next/link';
-import { LuChevronLeft } from 'react-icons/lu';
-import ButtonBottom from '../../../components/button-bottom';
 
-// import { Container } from './styles';
-
-const Index = () => {
+export default function Page() {
 
   const unparsedFormData =
     typeof window !== "undefined"
       ? localStorage.getItem("register-form-data")
       : undefined;
   const formData = unparsedFormData ? JSON.parse(unparsedFormData) : null;
+
+
+  // 
+  // Implementar react hook form
+  // 
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -30,7 +30,7 @@ const Index = () => {
   }
 
   return (
-    <main className='flex flex-col w-full h-screen items-center justify-center bg-theme-background px-4'>
+    <main className='flex flex-col w-full h-[inherit] items-center justify-center bg-theme-background px-4'>
       <TitlePage>Recuperar senha</TitlePage>
       <DescriptionPage>
         Enviaremos um código de <br /> verificação para o email abaixo
@@ -49,16 +49,6 @@ const Index = () => {
           Entrar
         </Button>
       </form>
-      <ButtonBottom url="/login">Voltar</ButtonBottom>
     </main>
   );
 }
-
-export default Index;
-
-// 
-// Tornar o Title; Description; Button (compartilhado)
-// Atualizar o Input no compartilhamento
-// Refatorar o Código para as outras páginas utilizar o Title e Page já que se repete tanto
-// Componentizar os schema pra reutilizar
-// 
