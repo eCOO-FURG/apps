@@ -5,7 +5,6 @@ const PROTECTED_PAGES = [ "",
   "/pedidos",
   "/entregas",
   "/enviar-sacola",
-  "/montar-sacola",
 ];
 
 const PAGES_IN_CONSTRUCTION =

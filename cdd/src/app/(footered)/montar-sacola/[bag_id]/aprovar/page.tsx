@@ -27,7 +27,7 @@ export default function Pronta() {
             A sacola está < br/> pronta!
           </span>
           <span className="mt-4 text-center text-slate-gray font-medium text-sm">
-            A sacola {bag_id} do cliente < br/> Eduardo Teixeira está pronta.
+            A sacola #{bag_id} do cliente < br/> Eduardo Teixeira está pronta.
           </span>
         </div>
         <div className="w-full h-1/5 pb-2 bg-red flex flex-col justify-end gap-4">
