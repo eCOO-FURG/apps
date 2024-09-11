@@ -14,6 +14,7 @@ export type EcooAPIRouteParams = {
       last_name: string;
       password: string;
       cpf: string;
+      roles: ("ADMIN" | "PRODUCER" | "USER")[];
     }
   ];
   authenticateUser: [user_data: { email: string; password: string }];

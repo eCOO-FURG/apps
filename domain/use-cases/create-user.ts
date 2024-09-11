@@ -10,6 +10,7 @@ interface CreateAccountData {
   first_name: string;
   last_name: string;
   cpf: string;
+  roles: ("ADMIN" | "PRODUCER" | "USER")[];
 }
 
 export const createAccount: UseCaseHandler<
@@ -29,6 +30,7 @@ export const createAccount: UseCaseHandler<
     last_name: user.last_name,
     password: user.password,
     cpf: user.cpf,
+    roles: user.roles,
   });
   await store("user", user);
 

@@ -57,6 +57,7 @@ export const ecooAPIHTTPProvider: IEcooAPI = {
       last_name: user_data.last_name,
       password: user_data.password,
       cpf: user_data.cpf,
+      roles: user_data.roles,
     });
 
     return { data: response.data, status: 201 };
