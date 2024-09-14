@@ -27,15 +27,10 @@ const UpdateAccountInfoButton = ({
 
   const handleClick = async () => {
 
-    console.log(phone);
-    console.log(password);
-    console.log(email);
-    console.log("cpf:", cpf);
-
-    await updateUser({ firstName, lastName, phone, password, email, cpf })
+    await updateUser({ first_name: firstName, last_name: lastName, phone, password, email, cpf })
     .then((response) => {
-      if (response?.reply.message){
-        toast.error(response?.reply.message);
+      if (response?.message){
+        toast.error(response.message);
         return;
       } else {
         toast.success("Cadastro atualizado com sucesso!");

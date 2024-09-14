@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useState } from "react";
-import { Dialog } from "@headlessui/react";
+import { Dialog, FocusTrap } from "@headlessui/react";
 import Link from "next/link";
 import UpdateAccountInfoButton from "./UpdateAccountInfoButton";
 import { StatusContent } from "./StatusContent";
@@ -62,34 +62,44 @@ export default function Modal({
               {description}
             </Dialog.Description>
             {approvalButtons && (
-              <div className="gap-2 h-[41.14px] flex flex-row justify-stretch items-center w-full font-inter font-semibold text-[15.67px]">
-                <button
-                  onClick={closeModal}
-                  className="w-[50%] h-[inherit] bg-[#EEF1F4] rounded-md text-[#455154]"
-                >
-                  {textButton1}
-                </button>
 
-                {button2 ? (
-                  <div className="w-[50%] h-[inherit]">{button2}</div>
-                ) : (
-                  <Link
-                    href={link2}
-                    className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
+              <FocusTrap>
+                <div className="gap-2 h-[41.14px] flex flex-row justify-stretch items-center w-full font-inter font-semibold text-[15.67px]">
+                  <button
+                    onClick={closeModal}
+                    className="w-[50%] h-[inherit] bg-[#EEF1F4] rounded-md text-[#455154]"
                   >
-                    <UpdateAccountInfoButton
-                      firstName={info.firstName}
-                      lastName={info.lastName}
-                      phone={info.phone}
-                      password={info.password}
-                      email={info.email}
-                      cpf={info.cpf}
-                    />
-                  </Link>
-                )}
-              </div>
+                    {textButton1}
+                  </button>
+
+                  {button2 ? (
+                    <div className="w-[50%] h-[inherit]">{button2}</div>
+                  ) : (
+                    <Link
+                      href={link2}
+                      className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
+                    >
+                      <UpdateAccountInfoButton
+                        firstName={info.firstName}
+                        lastName={info.lastName}
+                        phone={info.phone}
+                        password={info.password}
+                        email={info.email}
+                        cpf={info.cpf}
+                      />
+                    </Link>
+                  )}
+                </div>
+              </FocusTrap>
             )}
-          </Dialog.Panel>
+          <button
+            onClick={closeModal}
+            className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            aria-label="Close"
+          >
+            &times;
+          </button>
+        </Dialog.Panel>
         </div>
       </Dialog>
     </>
