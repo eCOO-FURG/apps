@@ -3,36 +3,8 @@ import { ReactNode, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import Link from "next/link";
 import UpdateAccountInfoButton from "./UpdateAccountInfoButton";
-
-export interface StatusContent {
-  subtitle: string;
-  buttonTitle: string;
-  buttonColor: string;
-  modalLink: string;
-  modalComponent: any;
-  modalDescription: string;
-  updateStatus: string;
-}
-
-interface ModalProps {
-  info:{
-    first_name: string;
-    last_name: string;
-    phone: string;
-    password: string;
-    email: string;
-    cpf: string;
-  }
-  openButton: ReactNode;
-  title: string;
-  description: string;
-  approvalButtons: boolean;
-  textButton1: string;
-  textButton2: string;
-  bgButton2: string;
-  link2: string;
-  button2?: ReactNode;
-}
+import { StatusContent } from "./StatusContent";
+import { ModalProps } from "./ModalProps";
 
 export default function Modal({
   info,
@@ -106,8 +78,8 @@ export default function Modal({
                     className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
                   >
                     <UpdateAccountInfoButton
-                      first_name={info.first_name}
-                      last_name={info.last_name}
+                      firstName={info.firstName}
+                      lastName={info.lastName}
                       phone={info.phone}
                       password={info.password}
                       email={info.email}

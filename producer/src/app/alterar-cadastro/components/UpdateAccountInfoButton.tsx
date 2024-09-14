@@ -7,8 +7,8 @@ import { updateUser } from "@producer/app/_actions/update-user/UpdateUserInfo";
 
 interface UpdateAccountInfoButtonProps
  {
-  first_name: string;
-  last_name: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   password: string;
   email: string;
@@ -16,8 +16,8 @@ interface UpdateAccountInfoButtonProps
 }
 
 const UpdateAccountInfoButton = ({
-  first_name,
-  last_name,
+  firstName,
+  lastName,
   phone,
   password,
   email,
@@ -27,14 +27,12 @@ const UpdateAccountInfoButton = ({
 
   const handleClick = async () => {
 
-    console.log(first_name);
-    console.log(last_name);
     console.log(phone);
     console.log(password);
     console.log(email);
     console.log("cpf:", cpf);
 
-    await updateUser({ first_name, last_name, phone, password, email, cpf })
+    await updateUser({ firstName, lastName, phone, password, email, cpf })
     .then((response) => {
       if (response?.reply.message){
         toast.error(response?.reply.message);

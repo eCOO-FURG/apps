@@ -1,18 +1,7 @@
 import React, { ReactNode } from "react";
 import Modal from "./Modal";
-
-interface ConfirmationModalProps {
-  info:{
-    first_name: string;
-    last_name: string;
-    phone: string;
-    password: string;
-    email: string;
-    cpf: string;
-  }
-  openButton: ReactNode;
-  link: string;
-}
+import { ModalProps } from "./ModalProps";
+import { ConfirmationModalProps } from "./ConfirmationModalProps";
 
 export default function ConfirmationModal({
   info,
@@ -29,7 +18,6 @@ export default function ConfirmationModal({
       textButton1="Cancelar"  
       textButton2="Confirmar"
       bgButton2="#ffffff"
-      // #00735E
       link2={link}
     />
   );

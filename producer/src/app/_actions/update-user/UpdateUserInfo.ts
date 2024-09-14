@@ -4,8 +4,8 @@ import axios from "axios";
 import { cookies } from "next/headers";
 
 interface UpdateUserRequest {
-  first_name?: string;
-  last_name?: string;
+  firstName?: string;
+  lastName?: string;
   phone?: string;
   password?: string; 
   email?: string;
@@ -13,8 +13,8 @@ interface UpdateUserRequest {
 }
 
 export async function updateUser({ 
-  first_name, 
-  last_name, 
+  firstName, 
+  lastName, 
   phone, 
   password, 
   email, 
@@ -30,7 +30,7 @@ export async function updateUser({
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ first_name, last_name, phone, password, email, cpf }),
+        body: JSON.stringify({ firstName, lastName, phone, password, email, cpf }),
       });
 
       const reply = await response.json();
