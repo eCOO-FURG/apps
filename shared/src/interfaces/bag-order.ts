@@ -18,6 +18,7 @@ export interface BagOrder {
   updated_at: string | null;
   orders: {
     id: string;
+    amount: string;
     bag_id: string;
     status: string;
     created_at: Date; 
