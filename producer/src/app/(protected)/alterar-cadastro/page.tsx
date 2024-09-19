@@ -4,7 +4,7 @@ import Button from "@shared/components/Button";
 import Link from "next/link";
 import { useState, useEffect, use } from "react";
 import { AiFillEye } from "react-icons/ai";
-import { getUser } from "../_actions/get-user/getUser";
+import { getUser } from "@producer/app/_actions/get-user/getUser";
 import { updateInfoFieldsSchema } from "./schemas";
 import Input from "./components/Input";
 import ConfirmationModal from "./components/ConfirmationModal";
@@ -67,6 +67,8 @@ export default function AlterarCadastro() {
         })
     })()
   }, [])
+
+  console.log(userInfo)
   
   return (
     <div className="w-full h-screen p-5 flex items-center flex-col bg-theme-background">

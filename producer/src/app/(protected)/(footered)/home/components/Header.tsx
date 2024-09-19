@@ -45,7 +45,7 @@ export function Header() {
           </>
         ) : (
           <>
-            Olá , <strong className="font-semibold">{name}</strong>
+            Olá , <Link href={"/alterar-cadastro"}><strong className="font-semibold underline cursor-pointer">{name}</strong></Link>
           </>
         )}
       </span>

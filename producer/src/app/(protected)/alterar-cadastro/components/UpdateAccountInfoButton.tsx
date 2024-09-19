@@ -27,7 +27,7 @@ const UpdateAccountInfoButton = ({
 
   const handleClick = async () => {
 
-    await updateUser({ first_name: firstName, last_name: lastName, phone, password, email, cpf })
+    await updateUser({ first_name: firstName, last_name: lastName, phone: phone, password: password, email: email, cpf: cpf })
     .then((response) => {
       if (response?.message){
         toast.error(response.message);
