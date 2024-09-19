@@ -1,85 +1,128 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { AiFillEye } from "react-icons/ai";
-import { toast } from "sonner";
+import { AiOutlineEye } from "react-icons/ai";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import Input from "@shared/next/components/Input";
-import { callServer } from "@shared/next/callServer";
-
+import { login } from "../../../_actions/account/login";
+import Loader from "../../../components/Loader";
+import { useHandleError } from "../../../hooks/useHandleError";
+import { toast } from "sonner";
 import { AppID } from "../../../library/types/app-id";
-
-import { loginAgribusinessAction } from "@shared/next/_actions/account/login-agribusiness";
-import { loginCDDAction } from "../../../_actions/account/login-cdd";
-import Loader from "../../../components/Loader"
 
 const schema = yup.object({
   email: yup
     .string()
-    .required("Informe o e-mail")
-    .email("Informe um email válido!"),
-  password: yup.string().required("Informe a senha"),
+    .required("Insira seu e-mail.")
+    .email("Insira um e-mail válido."),
+  password: yup.string().required("Insira a sua senha."),
 });
 
 export default function FormLogin({ appID }: { appID: AppID }) {
   const resolver = yupResolver(schema);
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
+  const { handleError } = useHandleError();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ resolver });
+    setValue,
+    trigger,
+  } = useForm({
+    resolver,
+  });
 
   const onSubmit = async ({ email, password }: any) => {
-    setIsLoading(true)
+    setIsLoading(true);
 
-    await callServer(appID === "CDD" ? loginCDDAction : loginAgribusinessAction)
-      .after(() => {
-        toast.success("Login efetuado com sucesso.");
-        router.push("/");
-        setIsLoading(false)
+    await login({
+      email,
+      password,
+      appID
+    })
+      .then((response) => {
+        if (response.message) {
+          const messageError = response.message as string;
+          handleError(messageError);
+          setIsLoading(false);
+        } else {
+          toast.success("Login efetuado com sucesso!");
+          setIsLoading(false);
+          router.push("/");
+        }
       })
-      .run({
-        email,
-        password,
-      })
+      .catch(() => {
+        toast.error("Erro ao efetuar login");
+        setIsLoading(false);
+      });
+  };
 
-      setIsLoading(false)
+  useEffect(() => {
+    const handleInput = (event: Event) => {
+      const target = event.target as HTMLInputElement;
+      const { name, value } = target;
+
+      if (name === "email" || name === "password") {
+        setValue(name as "email" | "password", value);
+        trigger(name as "email" | "password");
+      }
+    };
+
+    const emailInput = document.querySelector("input[name='email']");
+    const passwordInput = document.querySelector("input[name='password']");
+
+    if (emailInput && passwordInput) {
+      emailInput.addEventListener("input", handleInput);
+      passwordInput.addEventListener("input", handleInput);
     }
 
+    return () => {
+      if (emailInput && passwordInput) {
+        emailInput.removeEventListener("input", handleInput);
+        passwordInput.removeEventListener("input", handleInput);
+      }
+    };
+  }, [setValue, trigger]);
+
+
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="space-y-3 flex flex-col">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2.5 pb-0.5">
         <Input
           type="text"
-          label="Email"
+          label="E-mail"
+          labelClassName="pb-1.5 text-sm font-inter font-normal leading-5 tracking-tight"
           register={{ ...register("email") }}
           error={errors.email?.message}
+          autoComplete="email"
+          className="font-normal font-inter text-base	leading-[22px] text-slate-gray"
         />
         <Input
-          label="Senha"
           type="password"
-          icon={<AiFillEye />}
+          label="Senha"
+          labelClassName="pb-1.5 text-sm font-inter font-normal leading-5 tracking-tight"
+          icon={<AiOutlineEye size={24} />}
           register={{ ...register("password") }}
           error={errors.password?.message}
+          autoComplete="password"
+          className="font-normal font-inter text-base	leading-[22px]"
         />
       </div>
       <button
         disabled={isLoading}
         type="submit"
-        className="w-full flex justify-center items-center px-3 py-4 font-semibold rounded-lg text-base text-white p-2 bg-slate-gray mt-6"
-        style={{ minHeight: "50px" }} // Define um tamanho mínimo para o botão
+        className="w-full h-12 flex flex-col items-center justify-center font-semibold rounded-md text-base leading-[22px] bg-theme-default text-white border-0 "
       >
-        {isLoading ? (
-          <Loader className="w-6 h-6 border-white" />
-        ) : (
-          <>Entrar</>
-        )}
+        {isLoading ? <Loader
+          appId="PRODUCER"
+          loaderType="login"
+        /> : <>Entrar</>}
       </button>
     </form>
   );

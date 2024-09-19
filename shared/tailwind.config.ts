@@ -12,6 +12,7 @@ const config: Config = {
       colors: {
         theme: {
           default: "var(--color-default)",
+          "home-bg": "var(--color-home-background)",
           primary: "var(--color-primary)",
           secondary: "var(--color-secondary)",
           background: "var(--color-background)",
@@ -27,6 +28,7 @@ const config: Config = {
         "blanched-almoad": "#FFEDCC",
         platinum: "#EAE7E3",
         "walnut-brown": "#4F4743",
+        error: "#FF7070",
         "ghost-white": {
           base: "#FAFCFF",
           100: "#FAFCFF",
