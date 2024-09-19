@@ -45,10 +45,8 @@ export default function AlterarCadastro() {
         .then((response) => {
           if (response.message) {
             const messageError = response.message;
-
             handleError(messageError)
           } else if (response.data) {
-            console.log(response.data)
             const { first_name, last_name, phone, email, cpf } = response.data;
             setUserInfo((prevState) => ({
               user: {
@@ -201,6 +199,8 @@ export default function AlterarCadastro() {
                     !userInfo.field.lastName ||
                     userInfo.field.phone.length < 11 ||
                     userInfo.field.phone.length < 8 ||
+                    userInfo.field.password.length < 8 ||
+                    userInfo.field.confirmPassword.length < 8 ||
                     userInfo.field.confirmPassword !== userInfo.field.password
                       ? "bg-gray-400"
                       : "bg-[#00735E]"
@@ -211,6 +211,8 @@ export default function AlterarCadastro() {
                     !userInfo.field.lastName ||
                     userInfo.field.phone.length < 11 ||
                     userInfo.field.phone.length < 8 ||
+                    userInfo.field.password.length < 8 ||
+                    userInfo.field.confirmPassword.length < 8 ||
                     userInfo.field.confirmPassword !== userInfo.field.password
                   }
                 >

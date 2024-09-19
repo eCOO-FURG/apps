@@ -24,7 +24,7 @@ export function Header() {
           setName(`${first_name} ${last_name}`);
         }
       }).catch((error) => {
-        toast.error("Erro ao buscar informações do usuário")
+        toast.error(error)
       })
     })()
   }, [])
