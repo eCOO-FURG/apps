@@ -1,22 +1,33 @@
 "use client";
 
-import { getAccountAction } from "@shared/_actions/account/get-account";
+import { getUser } from "@producer/app/_actions/get-user/getUser";
+import { useHandleError } from "@shared/hooks/useHandleError";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { HiOutlineBell } from "react-icons/hi";
+import { toast } from "sonner";
 
 const handleLogout = () => {};
 
 export function Header() {
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
+  const { handleError } = useHandleError()
 
   useEffect(() => {
     (async () => {
-      const { first_name, last_name } = await getAccountAction({})
-
-      setName(`${first_name} ${last_name}`);
+      await getUser().then((response) => {
+        if (response.message) {
+          const messageError = response.message;
+          handleError(messageError)
+        } else if (response.data) {
+          const { first_name, last_name } = response.data;
+          setName(`${first_name} ${last_name}`);
+        }
+      }).catch((error) => {
+        toast.error("Erro ao buscar informações do usuário")
+      })
     })()
-  })
+  }, [])
 
   return (
     <header className="flex items-center mb-4 text-slate-gray">
