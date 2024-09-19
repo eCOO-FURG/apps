@@ -23,7 +23,7 @@ export default function RegisterStep4() {
         name="caf"
         placeholder="Talão"
         type="text"
-        label="'Número do talão"
+        label="Número do talão"
         mask={maskCAF}
         initialValue={formData?.caf || null}
         validationSchema={registerStep4FieldsSchema.caf}
