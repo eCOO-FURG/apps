@@ -27,8 +27,7 @@ export default function Produtos() {
   const productData: product = productDataString
     ? JSON.parse(productDataString)
     : null;
-
-  // const { pricing } = productData
+    
   const pricing = productData?.pricing;
   useEffect(() => {
     localStorage.setItem("offer-product-step", JSON.stringify(currentStep));

@@ -4,16 +4,7 @@ import { useEffect, useState } from "react";
 import OldButton from "@shared/components/OldButton";
 import { toast } from "sonner";
 import { updateUser } from "@producer/app/_actions/update-user/UpdateUserInfo";
-
-interface UpdateAccountInfoButtonProps
- {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  password: string;
-  email: string;
-  cpf: string;
-}
+import { UpdateAccountInfoButtonProps } from "./UpdateAccountInfoButtonProps";
 
 const UpdateAccountInfoButton = ({
   firstName,

@@ -31,7 +31,7 @@ export default function Modal({
   return (
     <>
       <div
-        className={`cursor-pointer w-full h-10 flex justify-center items-center bg-[${bgButton2}] rounded-md text-white font-semibold font-inter text-[15.67px]`}
+        className={`cursor-pointer w-full h-10 flex justify-center items-center bg-[${bgButton2}] rounded-md text-white font-semibold font-inter`}
         aria-label="Abrir Modal"
         onClick={openModal}
       >
