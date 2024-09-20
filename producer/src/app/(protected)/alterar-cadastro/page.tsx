@@ -67,8 +67,6 @@ export default function AlterarCadastro() {
         })
     })()
   }, [])
-
-  console.log(userInfo)
   
   return (
     <div className="w-full h-screen p-5 flex items-center flex-col bg-theme-background">

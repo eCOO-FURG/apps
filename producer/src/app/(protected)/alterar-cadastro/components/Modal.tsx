@@ -64,20 +64,20 @@ export default function Modal({
             {approvalButtons && (
 
               <FocusTrap>
-                <div className="gap-2 h-[41.14px] flex flex-row justify-stretch items-center w-full font-inter font-semibold text-[15.67px]">
+                <div className="gap-2 flex flex-row justify-stretch items-center w-full font-inter font-semibold text-[15.67px]">
                   <button
                     onClick={closeModal}
-                    className="w-[50%] h-[inherit] bg-[#EEF1F4] rounded-md text-[#455154]"
+                    className="w-full rounded-lg font-semibold text-slate-gray border-slate-gray border-2 py-2.5"
                   >
                     {textButton1}
                   </button>
 
                   {button2 ? (
-                    <div className="w-[50%] h-[inherit]">{button2}</div>
+                    <div className="w-full h-[inherit]">{button2}</div>
                   ) : (
                     <Link
                       href={link2}
-                      className={`w-[50%] h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
+                      className={`w-full h-[inherit] bg-[${bgButton2}] rounded-md text-white flex justify-center items-center`}
                     >
                       <UpdateAccountInfoButton
                         firstName={info.firstName}
