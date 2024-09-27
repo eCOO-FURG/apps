@@ -13,7 +13,7 @@ import Card from "@shared/components/Card";
 import { useCycleProvider } from "@shared/context";
 
 export function ProductMenu() {
-  const router = useRouter();
+  const router = useRouter()
 
   const { cycle } = useCycleProvider();
 
@@ -22,7 +22,9 @@ export function ProductMenu() {
   useEffect(() => {
     if (cycle !== undefined) {
       const diaAtual = new Date().getDay() + 1;
-      const { offer } = cycle;
+      const { offer } = cycle
+
+      setIsOfferingDay(false)
 
       if (Array.isArray(offer) && offer.includes(diaAtual)) {
         setIsOfferingDay(true);
@@ -34,24 +36,23 @@ export function ProductMenu() {
   }, [cycle]);
 
   const handleClickOfferProductButton = () => {
-    const cycle_idString = localStorage.getItem("selected-cycle") as string;
+    const cycle_idString = localStorage.getItem("selected-cycle") as string
 
     if (!cycle_idString) {
-      toast.warning("Selecione um ciclo para começar uma oferta!");
-      return;
+      toast.warning("Selecione um ciclo para começar uma oferta!")
+      return
     }
 
-    const { id } = JSON.parse(cycle_idString);
+    const { id } = JSON.parse(cycle_idString)
 
-    localStorage.setItem(
-      "offer-products-data",
+    localStorage.setItem("offer-products-data",
       JSON.stringify({
-        cycle_id: id,
+        cycle_id: id
       })
-    );
+    )
 
-    router.push("/oferta");
-  };
+    router.push("/produtos/vender")
+  }
 
   return (
     <Card className="gap-3.5 p-5 w-full">
@@ -70,14 +71,15 @@ export function ProductMenu() {
           disabled={!isOfferingDay || isUnderConstruction("/oferta")}
           href="/"
         >
-          Fazer uma oferta
+          Colocar a venda
         </Button>
-        <Link href={"/"}>
+        <Link href={"/produtos/meus"}>
           <Button
             className="w-full bg-transparent h-12 rounded-md border-[2px] border-theme-default"
             disabled={true}
+            href={"/produtos/meus"}
           >
-            Gerar relatórios
+            Ofertas vigentes
           </Button>
         </Link>
       </div>

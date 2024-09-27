@@ -32,7 +32,7 @@ export default function BagsTable({ page }: BagsProps) {
   useEffect(() => {
     (() => {
       setIsLoading(true)
-      const cycle= getFromStorage("selected-cycle");
+      const cycle = getFromStorage("selected-cycle");
 
       if (!cycle) {
         toast.error("Selecione um ciclo para montar uma sacola!");
@@ -104,7 +104,7 @@ export default function BagsTable({ page }: BagsProps) {
       ) : !isLoading && bags.length === 0 ? (
         <div className="flex flex-col justify-center gap-1 items-center mt-3 text-slate-gray">
           <FaBoxOpen className="text-walnut-brown" size={64} />
-          <span className="text-center">Nenhuma sacola < br/> encontrada!</span>
+          <span className="text-center">Nenhuma sacola < br /> encontrada!</span>
         </div>
       ) : (
         <table className="bg-white text-theme-primary text-left leading-7 w-full table-fixed rounded-lg mb-4 overflow-y-hidden">

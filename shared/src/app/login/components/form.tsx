@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AiOutlineEye } from "react-icons/ai";
@@ -23,7 +23,7 @@ const schema = yup.object({
 
 export default function FormLogin({ appID }: { appID: AppID }) {
   const resolver = yupResolver(schema);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const router = useRouter();
   const { handleError } = useHandleError();
 
@@ -38,7 +38,7 @@ export default function FormLogin({ appID }: { appID: AppID }) {
   });
 
   const onSubmit = async ({ email, password }: any) => {
-    setIsLoading(true);
+    setIsLoading(true)
 
     await login({
       email,
