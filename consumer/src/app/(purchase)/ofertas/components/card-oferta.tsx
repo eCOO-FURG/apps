@@ -105,7 +105,7 @@ export default function CardOferta({
   };
 
   return (
-    <div className="w-[350px] bg-[rgb(246,246,246)] flex flex-col rounded-2xl justify-start p-2.5 items-start">
+    <div className="w-88 bg-[rgb(246,246,246)] flex flex-col rounded-2xl justify-start p-2.5 items-start">
       {/* Product div */}
       <div className="flex flex-row w-full gap-2.5">
         <div className="relative h-24 w-24 rounded-xl shrink-0">
@@ -117,27 +117,27 @@ export default function CardOferta({
             height={100}
             alt={`${offer.product.name.toLowerCase()}.jpg`}
           />
-          <div className="absolute flex justify-center bottom-0 right-0 bg-[#3E5155] text-white items-center w-12 h-5 rounded-tl-xl rounded-br-xl text-xs">
+          <div className="absolute flex justify-center bottom-0 right-0 bg-dark-slate text-white items-center w-12 h-5 rounded-tl-xl rounded-br-xl text-xs">
             {mapTextQuantity[offer.product.pricing]}
           </div>
         </div>
         <div className="flex flex-col w-full h-full justify-between">
           <div className="flex flex-col justify-between w-full">
             <p className="w-full text-left font-poppins text-base leading-5 font-bold
-            text-[#2F4A4D]">
+            text-slate-gray">
               {offer.product.name}
             </p>
             {/* Description div */}
             <div className="w-[calc(100%-2.5rem)]">
               {offer.description && offer.description.length <= 70 ? (
-                <p className="w-full text-left font-poppins text-xs text-[#2F4A4D]">
+                <p className="w-full text-left font-poppins text-xs text-slate-gray">
                   {offer.description}
                 </p>
               ) : null}
 
               {offer.description && offer.description.length > 70 ? (
                 <>
-                  <p className="w-full text-left font-poppins text-xs text-[#2F4A4D]">
+                  <p className="w-full text-left font-poppins text-xs text-slate-gray">
                     {offer.expandDescription
                       ? offer.description
                       : `${offer?.description?.slice(0, 70)}...`}
@@ -145,7 +145,7 @@ export default function CardOferta({
                   <p>
                     <button
                       onClick={() => toggleDescription(offer)}
-                      className="text-[#2F4A4D] text-xs font-semibold underline"
+                      className="text-slate-gray text-xs font-semibold underline"
                     >
                       {offer.expandDescription ? "Fechar" : "Leia mais"}
                     </button>
@@ -223,8 +223,8 @@ export default function CardOferta({
                 type="button"
                 className={
                   count != 0
-                    ? "text-[#00735E] text-2xl p-1.5"
-                    : "text-[#00735E] text-2xl p-1.5 opacity-25"
+                    ? "text-rain-forest text-2xl p-1.5"
+                    : "text-rain-forest text-2xl p-1.5 opacity-25"
                 }
                 onClick={handleRemove}
                 disabled={count == 0}
@@ -233,7 +233,7 @@ export default function CardOferta({
               </button>
             </div>
             <div className="w-9 flex items-center justify-center">
-              <p className="font-poppin text-base text-center text-[#2F4A4D] p-1">
+              <p className="font-poppin text-base text-center text-slate-gray p-1">
                 {count}
               </p>
             </div>
@@ -243,8 +243,8 @@ export default function CardOferta({
                 className={
                   count !=
                     Math.floor(offer.amount / mapQuantity[offer.product.pricing])
-                    ? "text-[#00735E] text-2xl p-1.5"
-                    : "text-[#00735E] text-2xl p-1.5 opacity-25"
+                    ? "text-rain-forest text-2xl p-1.5"
+                    : "text-rain-forest text-2xl p-1.5 opacity-25"
                 }
                 onClick={handleAdd}
                 disabled={

@@ -65,8 +65,8 @@ export default function Produtores() {
               return (
                 <>
                   <Link href={`/ofertas/${producer?.id}/${producer?.name}/${cycleId}`}>
-                    <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px]">
-                      <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
+                    <div className="min-w-88 h-25 bg-[rgb(246,246,246)] flex rounded-2xl m-2.5">
+                      <div className="flex w-20 h-20 ml-2.5 mt-2.5 mb-2.5 mr-5 bg-rain-forest rounded-xl">
                        <Image
                           src={ producer.caf != "123456789" ? "/produtor.jpg" : "/produtor2.jpeg"}
                           className="w-full h-full object-cover rounded-[10px]"
@@ -76,7 +76,7 @@ export default function Produtores() {
                           />
                       </div>
                       <div className="grow flex flex-col items-center justify-center min-h-20 mt-2 mb-2">
-                        <span className="w-full text-left font-poppins text-base text-[#2F4A4D]">
+                        <span className="w-full text-left font-poppins text-base text-slate-gray">
                           {producer.name}
                         </span>
                       </div>
@@ -101,7 +101,7 @@ export default function Produtores() {
           }
         </div>
       </div>
-      <div className="min-h-[70px]">
+      <div className="min-h-18">
         <RedirectCart/>
       </div>
       </div>

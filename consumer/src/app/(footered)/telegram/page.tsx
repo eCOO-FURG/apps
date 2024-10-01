@@ -29,7 +29,7 @@ export default async function telegram() {
                 </div>
                 
                 <div className="w-full flex justify-center">
-                    <span className="w-64 text-center place-self-center text-[#2F4A4D]">No momento, os pedidos online podem ser realizados apenas pelo nosso canal do Telegram</span>
+                    <span className="w-64 text-center place-self-center text-slate-gray">No momento, os pedidos online podem ser realizados apenas pelo nosso canal do Telegram</span>
                 </div>
                 
                 <div className="w-auto">
@@ -46,7 +46,7 @@ export default async function telegram() {
                     <Link href={`${process.env["BOT_URL"]}?start=token`}>
                         <OldButton
                         title="Abrir o Telegram"
-                        className="bg-[#00735E] rounded-md font-inter font-semibold text-white h-auto"
+                        className="bg-rain-forest rounded-md font-inter font-semibold text-white h-auto"
                         ></OldButton>
                     </Link>
                 </div>

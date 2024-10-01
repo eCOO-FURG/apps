@@ -111,7 +111,7 @@ export default function CardProdutoCart({
   };
 
   return (
-    <div className="min-w-[350px] min-h-[156px] bg-[rgb(246,246,246)] flex rounded-2xl ml-2.5 mr-6 mt-4 mb-4">
+    <div className="min-w-88 min-h-[156px] bg-[rgb(246,246,246)] flex rounded-2xl ml-2.5 mr-6 mt-4 mb-4">
       <div className="flex-none relative h-24 w-24 rounded-xl mt-3 mr-3 ml-3 mb-11">
         <Image
           className="rounded-xl"
@@ -121,19 +121,19 @@ export default function CardProdutoCart({
           height={100}
           alt={`${product.name.toLowerCase()}.jpg`}
         />
-        <div className="absolute flex justify-center bottom-0 right-0 bg-[#00735E] text-white items-center w-12 h-5 rounded-tl-xl text-xs font-semibold">
+        <div className="absolute flex justify-center bottom-0 right-0 bg-rain-forest text-white items-center w-12 h-5 rounded-tl-xl text-xs font-semibold">
           {mapTextQuantity[product.pricing]}
         </div>
       </div>
       <div className="flex flex-col w-52 min-h-28 m-2.5">
         <div className="grow flex flex-row">
           <div className="grow w-48">
-            <p className="w-full text-left font-poppins text-base text-[#2F4A4D]">
+            <p className="w-full text-left font-poppins text-base text-slate-gray">
               {product.name}
             </p>
             {product.description && product.description.length <= 70 ? (
               <div>
-                <p className="w-full text-left font-poppins text-xs text-[#2F4A4D]">
+                <p className="w-full text-left font-poppins text-xs text-slate-gray">
                   {product.description}
                 </p>
               </div>
@@ -141,7 +141,7 @@ export default function CardProdutoCart({
 
             {product.description && product.description.length > 70 ? (
               <div>
-                <p className="w-full text-left font-poppins text-xs text-[#2F4A4D]">
+                <p className="w-full text-left font-poppins text-xs text-slate-gray">
                   {product.expandDescription
                     ? product.description
                     : `${product?.description?.slice(0, 70)}...`}
@@ -149,7 +149,7 @@ export default function CardProdutoCart({
                 <p>
                   <button
                     onClick={() => toggleDescription(product)}
-                    className="text-[#2F4A4D] text-xs font-semibold underline"
+                    className="text-slate-gray text-xs font-semibold underline"
                   >
                     {product.expandDescription ? "Leia menos" : "Leia mais"}
                   </button>
@@ -178,7 +178,7 @@ export default function CardProdutoCart({
         </div>
         <div className="flex flex-row min-h-8">
           <div className="w-[124px] mr-2.5">
-            <p className="w-full text-left font-poppins text-base text-[#2F4A4D] pt-3">
+            <p className="w-full text-left font-poppins text-base text-slate-gray pt-3">
               {product.price.toLocaleString("pt-br", {
                 style: "currency",
                 currency: "BRL",
@@ -193,8 +193,8 @@ export default function CardProdutoCart({
                 type="button"
                 className={
                   count != 0
-                    ? "text-[#00735E] text-2xl p-1.5"
-                    : "text-[#00735E] text-2xl p-1.5 opacity-25"
+                    ? "text-rain-forest text-2xl p-1.5"
+                    : "text-rain-forest text-2xl p-1.5 opacity-25"
                 }
                 onClick={handleRemove}
                 disabled={count == 0}
@@ -203,7 +203,7 @@ export default function CardProdutoCart({
               </button>
             </div>
             <div className="w-9 flex items-center justify-center">
-              <p className="font-poppin text-base text-center text-[#2F4A4D] p-1">
+              <p className="font-poppin text-base text-center text-slate-gray p-1">
                 {count}
               </p>
             </div>
@@ -213,8 +213,8 @@ export default function CardProdutoCart({
                 className={
                   count !=
                   Math.floor(product.amount / mapQuantity[product.pricing])
-                    ? "text-[#00735E] text-2xl p-1.5"
-                    : "text-[#00735E] text-2xl p-1.5 opacity-25"
+                    ? "text-rain-forest text-2xl p-1.5"
+                    : "text-rain-forest text-2xl p-1.5 opacity-25"
                 }
                 onClick={handleAdd}
                 disabled={

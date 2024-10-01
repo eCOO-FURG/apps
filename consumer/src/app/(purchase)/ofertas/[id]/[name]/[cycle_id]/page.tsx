@@ -81,7 +81,7 @@ export default function Ofertas() {
             {hasMore && <div ref={ref}>Carregando...</div>}
           </div>
         </div>
-        <div className="min-h-[70px]">
+        <div className="min-h-18">
           <RedirectCart />
         </div>
       </div>

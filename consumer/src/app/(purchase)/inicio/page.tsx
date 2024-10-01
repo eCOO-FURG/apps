@@ -11,8 +11,8 @@ export default function Inicio() {
     <div className="flex flex-col w-full h-screen">
       <div className="h-screen scroll-smooth">
 
-        <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px] opacity-50">
-          <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
+        <div className="min-w-88 h-25 bg-[rgb(246,246,246)] flex rounded-2xl m-2.5 opacity-50">
+          <div className="flex w-20 h-20 ml-2.5 mt-2.5 mb-2.5 mr-[20px] bg-rain-forest rounded-xl">
             <Image
             className="rounded-[10px]"
             src={"/256x256_categorias.jpg"}
@@ -37,8 +37,8 @@ export default function Inicio() {
         </div>
 
         <Link href={"/produtores"}>
-        <div className="min-w-[350px] h-[100px] bg-[rgb(246,246,246)] flex rounded-2xl m-[10px]">
-          <div className="flex w-20 h-20 ml-[10px] mt-[10px] mb-[10px] mr-[20px] bg-[#00735E] rounded-[11px]">
+        <div className="min-w-88 h-25 bg-[rgb(246,246,246)] flex rounded-2xl m-2.5">
+          <div className="flex w-20 h-20 ml-2.5 mt-2.5 mb-2.5 mr-[20px] bg-rain-forest rounded-xl">
           <Image
             className="rounded-[10px]"
             src={"/256x256_produtores.jpg"}
