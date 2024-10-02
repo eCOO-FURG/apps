@@ -35,8 +35,8 @@ export default function FinalizarCompras() {
               })
             : null}
         </div>
-        <div className="sticky bottom-0 h-[49px] bg-[#F7F7F7] flex flex-col">
-          <div className="bg-[#D1D1D6] ml-5 mr-5 w-[344px] border-[1px]"></div>
+        <div className="sticky bottom-0 h-12 bg-light-gray-white flex flex-col">
+          <div className="bg-french-gray ml-5 mr-5 w border-[1px]"></div>
           <div className="pl-5 pr-5 w-full font-inter">
             <span className="w-1/2 text-left text-xs p-2 inline-block text-slate-gray">
               Total:

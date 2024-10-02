@@ -36,7 +36,7 @@ export default async function telegram() {
                     <Link href={createLinkTelegram()}>
                         <OldButton
                         title="Baixar o Telegram"
-                        className="bg-white rounded-md font-inter font-semibold text-[#545F71] h-auto border-[#545F71] border-2 mb-3 mt-3"
+                        className="bg-white rounded-md font-inter font-semibold text-stormy-blue h-auto border-stormy-blue border-2 mb-3 mt-3"
                         
                         ></OldButton>
                     </Link>

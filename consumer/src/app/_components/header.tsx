@@ -25,9 +25,9 @@ export default function Header() {
 
   return (
     <>
-      <div className="w-full min-h-[72px] flex items-center bg-[#F7F7F7]">
+      <div className="w-full min-h-18 flex items-center bg-light-gray-white">
         {linkBack ? (
-          <div className="flex items-center justify-center overflow-hidden w-10 h-10 ml-3  bg-[#545F71] rounded-[112px]">
+          <div className="flex items-center justify-center overflow-hidden w-10 h-10 ml-3  bg-stormy-blue rounded-[112px]">
             <Link href={linkBack}>
               <Image
                 src="/back.png"
@@ -43,7 +43,7 @@ export default function Header() {
         )}
         <div className="grow text-center text-base font-inter font-bold text-slate-gray m-2">{title}</div>
 
-        <div className="relative flex items-center justify-center w-10 h-10 mr-3  bg-[#545F71] rounded-[112px]">
+        <div className="relative flex items-center justify-center w-10 h-10 mr-3  bg-stormy-blue rounded-[112px]">
           <Link href={"/carrinho"}>
             <Image src="/cart.png" alt="cart" className="h-4 w-4 object-cover" width={100} height={100}/>
           </Link>
