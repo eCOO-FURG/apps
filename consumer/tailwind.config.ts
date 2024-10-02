@@ -58,8 +58,10 @@ const config: Config = {
         7.5: "1.875rem",
         8.5: "2.125rem",
         15: "3.75rem",
+        18: "4.5rem",
         22.5: "5.625rem",
         38: "9.5rem",
+        88: "22rem",
       },
       height: {
         inherit: "inherit",
