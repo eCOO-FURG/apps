@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import HeaderDetail from "./HeaderDetail";
-import Table from "../../components/table";
+import OrderTable from "../../components/orderTable";
 import { handleOrderDelivery } from "@cdd/app/_actions/order/handle-order-delivery";
 import { getBoxOrders } from "@cdd/app/_actions/box/get-box-orders";
 
@@ -64,64 +64,6 @@ export default function FarmOrdersTable() {
     })();
   }, [box_id]);
 
-  const approveBox = () => {
-    handleOrderDelivery({
-      box_id: box_id as string,
-      status: "RECEIVED",
-    })
-      .then((response) => {
-        if (response.message) {
-          const messageError = response.message as string;
-          handleError(messageError);
-        } else {
-          sessionStorage.setItem(
-            "data-sucess",
-            JSON.stringify({
-              title: "A oferta foi aprovada!",
-              description: "A oferta do produtor foi aprovada.",
-              button: {
-                secundary: "/",
-                primary: "/ofertas",
-              },
-            })
-          );
-          router.push("/success");
-        }
-      })
-      .catch(() => {
-        toast.error("Erro desconhecido.");
-      });
-  };
-
-  const cancelBox = () => {
-    handleOrderDelivery({
-      box_id: box_id as string,
-      status: "CANCELLED",
-    })
-      .then((response) => {
-        if (response.message) {
-          const messageError = response.message as string;
-          handleError(messageError);
-        } else {
-          sessionStorage.setItem(
-            "data-sucess",
-            JSON.stringify({
-              title: "A oferta foi Reprovada!",
-              description: "A oferta do produtor foi REPROVADA.",
-              button: {
-                secundary: "/",
-                primary: "/ofertas",
-              },
-            })
-          );
-          router.push("/success");
-        }
-      })
-      .catch(() => {
-        toast.error("Erro desconhecido.");
-      });
-  };
-
   if (isLoading) {
     return <TableSkeleton />;
   }
@@ -156,37 +98,7 @@ export default function FarmOrdersTable() {
         time={getNextSaturdayDate()}
       />
 
-      <Table headers={headers} info={info} />
-
-      {
-        !!farmOrders.orders.length && (
-          <div className="w-full h-[10%] flex gap-2 justify-center items-end mt-4">
-            <Modal
-              titleContentModal="Você tem certeza?"
-              contentModal="Após rejeitar a entrega essa operação não poderá ser desfeita. Em caso de erro, entre em contato com o suporte."
-              titleCloseModal="Cancelar"
-              titleConfirmModal="Rejeitar"
-              titleOpenModal="Rejeitar"
-              bgOpenModal="#FF7070"
-              bgConfirmModal="#FF7070"
-              bgCloseModal="#EEF1F4"
-              modalAction={cancelBox}
-            />
-
-            <Modal
-              titleContentModal="Você tem certeza?"
-              contentModal="Após aprovar a oferta essa operação não poderá ser desfeita. Em caso de erro, entre em contato com o suporte."
-              titleCloseModal="Cancelar"
-              titleConfirmModal="Aprovar"
-              titleOpenModal="Aprovar"
-              bgOpenModal="#00735E"
-              bgConfirmModal="#00735E"
-              bgCloseModal="#EEF1F4"
-              modalAction={approveBox}
-            />
-          </div>
-        )
-      }
+      <OrderTable headers={headers} info={info} farmOrders={farmOrders}/>
     </div>
   );
 }
