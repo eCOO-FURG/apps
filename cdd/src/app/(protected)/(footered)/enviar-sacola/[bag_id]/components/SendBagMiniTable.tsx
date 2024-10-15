@@ -12,10 +12,11 @@ import { handleBag } from "@cdd/app/_actions/bag/handle-bag";
 
 import Modal from "@shared/components/Modal";
 import TableSkeleton from "@shared/components/TableSkeleton";
-import convertStatus from "@shared/utils/convert-status";
 
 import { BagOrder } from "@shared/interfaces/bag-order"
 import { useHandleError } from "@shared/hooks/useHandleError";
+
+import convertStatus from "@shared/utils/convert-status";
 import { getNextSaturdayDate } from "@shared/utils/get-next-saturday-date";
 import { convertUnit } from "@shared/utils/convert-unit";
 
@@ -64,12 +65,11 @@ export default function SendBagMiniTable() {
     })();
   }, [bag_id]);
 
-  const handleStatusBag = async (bag_id: string, status: "SEPARATED") => {
-    try {
-      const response = await handleBag({
-        bag_id,
-        status: "DISPATCHED",
-      });
+  const handleStatusBag = (bag_id: string) => {
+    handleBag({
+      bag_id,
+      status: "DISPATCHED",
+    }).then(response => {
       if (response.message) {
         const messageError = response.message as string;
         handleError(messageError);
@@ -93,17 +93,18 @@ export default function SendBagMiniTable() {
         );
         router.push(`/sucesso`);
       }
-    } catch (error) {
+    }).catch(() => {
       toast.error("Erro desconhecido.");
-    }
-  };
+    });
+  }
 
-  const handleNewStatus = async (bag_id: string, status: "PENDING" | "SEPARATED" | "DISPATCHED" | "RECEIVED" | "CANCELLED" | "DEFERRED") => {
-    try {
-      const response = await handleBag({
-        bag_id,
-        status
-      });
+  const handleNewStatus = (bag_id: string, status: "PENDING" | "SEPARATED"
+    | "DISPATCHED" | "RECEIVED" 
+    | "CANCELLED" | "DEFERRED" ) => {
+    handleBag({
+      bag_id,
+      status
+    }).then(response => {
       if (response.message) {
         const messageError = response.message as string;
         handleError(messageError);
@@ -128,10 +129,10 @@ export default function SendBagMiniTable() {
         );
         router.push(`/sucesso`);
       }
-    } catch (error) {
+    }).catch(() => {
       toast.error("Erro desconhecido.");
-    }
-  };
+    });
+  }
 
   return (
     <>
@@ -244,7 +245,7 @@ export default function SendBagMiniTable() {
                 bgConfirmModal="#00735E"
                 bgCloseModal="#EEF1F4"
                 modalAction={() => {
-                  handleStatusBag(bagOrder.id, "SEPARATED")
+                  handleStatusBag(bagOrder.id)
                 }}
               />
             ) : bagOrder.status && isStatusChanged ? (

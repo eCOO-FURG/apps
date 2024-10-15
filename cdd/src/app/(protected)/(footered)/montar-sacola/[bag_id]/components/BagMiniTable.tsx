@@ -132,29 +132,33 @@ export default function BagMiniTable() {
       ) : (
         <div className="w-full h-full flex flex-col justify-between">
           <div className="max-w-sm mx-auto bg-white rounded-lg">
-            <div className="flex gap-10 items-start text-theme-primary border-b-[1px] border-theme-background p-3">
+            <div className="flex gap-10 items-start text-theme-primary border-b border-theme-background p-3">
               <span className="w-1/5">Pedido:</span>
               <span className="w-4/5">{bagOrder?.id}</span>
             </div>
-            <div className="flex gap-10 items-start text-theme-primary border-b-[1px] border-theme-background p-3">
+            <div className="flex gap-10 items-start text-theme-primary border-b border-theme-background p-3">
               <span className="w-1/5">Status:</span>
               <span className="w-4/5">{bagOrder?.status === "PENDING" ? "Pendente" : "Pronta"}</span>
             </div>
-            <div className="flex gap-10 items-start text-theme-primary border-b-[1px] border-theme-background p-3">
+            <div className="flex gap-10 items-start text-theme-primary border-b border-theme-background p-3">
               <span className="w-1/5">Cliente:</span>
               <span className="w-4/5">{`${bagOrder?.user.first_name} ${bagOrder?.user.last_name}`}</span>
             </div>
-            <div className="flex gap-10 items-start text-theme-primary border-b-[1px] border-theme-background p-3">
+            <div className="flex gap-10 items-start text-theme-primary border-b border-theme-background p-3">
               <span className="w-1/5">Prazo:</span>
               <span className="w-4/5">{getNextSaturdayDate()}</span>
             </div>
             <div className="text-theme-primary p-3">Conteúdo:</div>
-            <div className="pl-3 pb-3 text-theme-primary">
-              {bagOrder?.orders.map(order => (
-                <div key={order.id}>
-                  {`${order.amount}${convertUnit(order.offer.product.pricing)} - ${order.offer.product.name}`}
-                </div>
-              ))}
+            <div className="flex gap-8 items-start text-theme-primary border-b border-theme-background p-3">
+              <span className="w-1/5">Conteúdo:</span>
+              <div className="w-4/5">
+                {bagOrder?.orders.map(order => (
+                  <div key={order.id} className="flex flex-col mb-5">
+                    {`${order.amount}${convertUnit(order.offer.product.pricing)} - ${order.offer.product.name} `}
+                    <span className="text-sm font-semibold text-theme-primary">{`(${order.offer.catalog.farm.name})`}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div className="w-full h-[10%] flex justify-center items-end">
