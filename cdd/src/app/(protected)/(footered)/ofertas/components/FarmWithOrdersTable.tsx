@@ -6,9 +6,9 @@ import { useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { toast } from "sonner";
 import { FaCheck, FaBoxOpen } from "react-icons/fa6";
-import StatusFilterButtons from "./StatusFilterButton";
+import StatusFilterButtons from "@shared/components/StatusFilterButton";
 
-import Table from "./table";
+import OrderTable from "@shared/components/OrderTable";
 
 import Loader from "@shared/components/Loader";
 import { IBoxes } from "@shared/interfaces/farm";
@@ -170,7 +170,7 @@ export function FarmWithOrdersTable({ page }: FarmsProps) {
           <span className="text-center w-52">Nenhum pedido encontrado!</span>
         </div>
       ) : (
-        <Table headers={headers} info={info} onRowClick={handleClick} />
+        <OrderTable headers={headers} info={info} onRowClick={handleClick} />
       )}
     </div>
   );

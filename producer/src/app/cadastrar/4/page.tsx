@@ -77,8 +77,8 @@ export default function FifthStep() {
         />
         <CustomInput
           register={register('caf')}
-          label="CAF"
-          placeholder="Insira o CAF"
+          label="Talão"
+          placeholder="Insira o número do talão"
           type="text"
           errorMessage={errors.caf?.message}
           mask="caf"
