@@ -11,12 +11,10 @@ export default function LayoutWithFooter({
   return (
     <CycleProvider>
       <div className="flex flex-col justify-between w-full h-full bg-theme-background">
-        <div className="flex-1 overflow-y-auto">
+        <div className="h-full overflow-y-auto">
           {children}
         </div>
-        <div className="h-[var(--footer-height)]">
-          <Footer appID={"PRODUCER"} />
-        </div>
+        <Footer appID={"PRODUCER"} />
       </div>
     </CycleProvider>
   );

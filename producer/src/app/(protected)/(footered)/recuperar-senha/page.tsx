@@ -50,7 +50,7 @@ function RecuperarSenha() {
   }
 
   return (
-    <div className='h-[inherit] w-full flex pl-3 pr-3 pt-3 flex-col justify-start items-center gap-9'>
+    <div className='w-full flex pl-3 pr-3 pt-3 flex-col justify-start items-center gap-9'>
       <div className="w-full flex flex-col items-center justify-end pt-28 mb-4 gap-2.5">
         <h1 className="text-3xl font-medium text-slate-gray pt-3">Esqueci a senha</h1>
         <span className="text-sm font-medium text-slate-gray w-2/3 text-center">

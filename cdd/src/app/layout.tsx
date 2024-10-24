@@ -20,7 +20,7 @@ export default function RootLayout({
 
   return (
     <html lang="pt-BR">
-      <body className={`${getAppID()} w-full h-[100dvh] font-poppins overflow-hidden`}>
+      <body className={`${getAppID()} w-full font-poppins`}>
         <div className="flex flex-row justify-center w-full h-full">
           <Toaster richColors position="top-right" />
           <div className="relative max-w-md w-full h-full">

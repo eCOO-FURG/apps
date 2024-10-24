@@ -41,7 +41,7 @@ export default function RegisterLayout({ children }: { children: React.ReactNode
   if(stepFromPath === 4) {
     return (
       <motion.div
-        className="w-full h-[100dvh]"
+        className="w-full h-full"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -65,7 +65,7 @@ export default function RegisterLayout({ children }: { children: React.ReactNode
 
   return (
     <motion.div
-      className="w-full h-[100dvh]"
+      className="w-full h-full"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

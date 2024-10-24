@@ -66,7 +66,7 @@ export default function CustomInput({
           <input
             {...register}
             onChange={handleInputChange}
-            className="w-full rounded-lg border border-slate-gray px-4 h-12 text-slate-gray focus:outline-none"
+            className="w-full rounded-md border border-slate-gray px-3 h-12 text-slate-gray focus:outline-none"
             type={type === "password" && showPassword ? "text" : type}
             {...inputProps}
           />
