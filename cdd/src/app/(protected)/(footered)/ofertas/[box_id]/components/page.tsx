@@ -160,19 +160,21 @@ export default function FarmOrdersTable() {
   }));
 
   return (
-    <div className="w-full h-full flex flex-col justify-between">
-      <HeaderDetail
-        id={farmOrders?.id.split("-", 1).toString().toUpperCase()}
-        status={convertStatus(farmOrders.status).name}
-        name={farmOrders.catalog.farm.name}
-        time={getNextSaturdayDate()}
-      />
+    <div className="w-full h-full flex flex-col justify-between overflow-y-auto">
+      <div className="w-full flex flex-col mb-10 overflow-y-auto">
+        <HeaderDetail
+          id={farmOrders?.id.split("-", 1).toString().toUpperCase()}
+          status={convertStatus(farmOrders.status).name}
+          name={farmOrders.catalog.farm.name}
+          time={getNextSaturdayDate()}
+        />
 
-      <Table headers={headers} info={info} />
+        <Table headers={headers} info={info} />
+      </div>
 
       {
         !!farmOrders.orders.length && (
-          <div className="w-full h-[10%] flex gap-2 justify-center items-end mt-4">
+          <div className="w-full h-[10%] flex gap-2 justify-center items-end">
             <Modal
               titleContentModal="Você tem certeza?"
               contentModal="Após rejeitar a entrega essa operação não poderá ser desfeita. Em caso de erro, entre em contato com o suporte."

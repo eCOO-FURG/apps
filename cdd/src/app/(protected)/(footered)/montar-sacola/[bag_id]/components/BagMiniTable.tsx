@@ -130,8 +130,8 @@ export default function BagMiniTable() {
       {isLoading ? (
         <TableSkeleton />
       ) : (
-        <div className="w-full h-full flex flex-col justify-between">
-          <div className="max-w-sm mx-auto bg-white rounded-lg">
+        <div className="w-full h-full flex flex-col justify-between overflow-y-auto">
+          <div className="max-w-sm mx-auto bg-white rounded-lg mb-6 overflow-y-auto">
             <div className="flex gap-10 items-start text-theme-primary border-b-[1px] border-theme-background p-3">
               <span className="w-1/5">Pedido:</span>
               <span className="w-4/5">{bagOrder?.id}</span>
@@ -157,7 +157,7 @@ export default function BagMiniTable() {
               ))}
             </div>
           </div>
-          <div className="w-full h-[10%] flex justify-center items-end">
+          <div className="w-full flex justify-center items-end mb-4">
             {bagOrder?.status === "PENDING" ? (
               <Modal
                 titleContentModal="Você tem certeza?"

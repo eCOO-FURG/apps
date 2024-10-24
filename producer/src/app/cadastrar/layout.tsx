@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import Stepper from "@shared/components/Stepper"
+import Stepper from "@shared/components/Stepper";
 import { ModelPage } from "@shared/components/ModelPage";
 import { useLocalStorage } from "@shared/hooks/useLocalStorage";
 import Loader from "@shared/components/Loader";
@@ -41,7 +41,7 @@ export default function RegisterLayout({ children }: { children: React.ReactNode
   if(stepFromPath === 4) {
     return (
       <motion.div
-        className="w-full h-full"
+        className="w-full h-[100dvh]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -65,7 +65,7 @@ export default function RegisterLayout({ children }: { children: React.ReactNode
 
   return (
     <motion.div
-      className="w-full h-full"
+      className="w-full h-[100dvh]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}

@@ -97,6 +97,7 @@ export default function AlterarCadastro() {
       titleClassName="pt-17"
       titleGap="gap-2.5"
       subtitle={`Após atualizar os seus dados, clique em salvar.`}
+      overflowAuto={true}
       subtitleClassName="px-9 leading-5.5"
       buttonArea={
         <div className="w-full flex gap-2 bg-transparent h-11">
