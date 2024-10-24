@@ -33,7 +33,7 @@ export default function Login({ appID }: { appID: AppID }) {
           Entre com seu email e senha:{" "}
         </span>
       </div>
-      <div className="w-full flex flex-col gap-6 px-1">
+      <div className="w-full flex flex-col gap-6 px-1 pt-1.5">
         <FormLogin appID={appID} />
         <div className="flex justify-center">
           <span className="text-sm leading-5.5 font-medium tracking-tight text-theme-default">

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+import { LuChevronsUpDown } from "react-icons/lu";
 
 interface Option {
   value: string;
@@ -52,7 +52,7 @@ export default function Select({ options, label, onChange, defaultOption }: Sele
         className="flex justify-between items-center px-4 h-12 border border-slate-gray rounded-md cursor-pointer bg-white text-slate-gray"
       >
         <span>{selectedOption ? selectedOption.label : ''}</span>
-        <FiChevronDown
+        <LuChevronsUpDown
           className={`text-slate-gray transition-transform duration-200 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
         />
       </div>
