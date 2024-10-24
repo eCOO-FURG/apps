@@ -55,19 +55,19 @@ a {
 }
 
 ::-webkit-scrollbar {
-  width: 12px; /* Largura da scrollbar */
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #F3F4F6; /* Cor de fundo do track */
+  background: #F3F4F6;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #D1D5DB; /* Cor do thumb */
-  border-radius: 6px; /* Deixa o thumb arredondado */
-  border: 3px solid #F3F4F6; /* Adiciona uma borda ao redor do thumb */
+  background-color: #D1D5DB;
+  border-radius: 6px;
+  border: 3px solid #F3F4F6;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #A1A1AA; /* Cor ao passar o mouse no thumb */
+  background-color: #A1A1AA;
 }

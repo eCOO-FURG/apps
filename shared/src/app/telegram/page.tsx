@@ -36,6 +36,7 @@ export default function Telegram() {
       }
       titleGap="gap-2"
       subtitle="No momento, os pedidos online podem ser realizados apenas pelo nosso canal do Telegram."
+      overflowAuto={true}
     >
       <div className="w-full flex flex-col gap-3">
         <a href={telegramDownloadUrl} target="_blank">

@@ -19,6 +19,7 @@ export default function NotFound(){
           height={364}
           alt=""
           className="w-full object-contain"
+          priority
         />
       </div>
       <div className="w-full h-[8%] flex items-center bg-theme-background">

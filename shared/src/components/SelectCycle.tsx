@@ -1,21 +1,26 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { FiChevronDown } from "react-icons/fi";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
+
+import { FiChevronDown } from "react-icons/fi";
+
+import Loader from "./Loader";
+import { ICycle } from "../interfaces/cycle";
+import { useHandleError } from "../hooks/useHandleError";
 import { useCycleProvider } from "../context/cycle/index";
 import { getCycles } from "../_actions/cycles/get-cycles";
-import { useHandleError } from "../hooks/useHandleError";
 import { useLocalStorage } from "../hooks/useLocalStorage";
-import { ICycle } from "../interfaces/cycle";
 
 export default function SelectCycle() {
   const [cycles, setCycles] = useState<ICycle[]>([]);
   const { cycle, setCycle } = useCycleProvider();
   const [isOpen, setIsOpen] = useState(false);
   const selectRef = useRef<HTMLDivElement>(null);
+
   const router = useRouter();
+  
   const { handleError } = useHandleError();
   const { getFromStorage, setInStorage } = useLocalStorage();
 
@@ -88,10 +93,14 @@ export default function SelectCycle() {
           className="relative w-full h-12 px-4 bg-white border rounded-lg flex justify-between items-center text-slate-gray focus:outline-none"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span>{cycle ? `Ciclo ${cycle.alias}` : "Selecione um ciclo"}</span>
-          <FiChevronDown
-            className={`text-slate-gray transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"}`}
-          />
+          {!cycle ? <Loader loaderType="login" /> : (
+            <>
+              <span>{cycle ? `Ciclo ${cycle.alias}` : "Selecione um ciclo"}</span>
+              <FiChevronDown
+                className={`text-slate-gray transition-transform duration-200 ${isOpen ? "rotate-180" : "rotate-0"}`}
+              />
+            </>
+          )}
         </button>
 
         {isOpen && (

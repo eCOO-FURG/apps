@@ -157,7 +157,7 @@ export default function BagMiniTable() {
               ))}
             </div>
           </div>
-          <div className="w-full flex justify-center items-end mb-4">
+          <div className="w-full flex justify-center items-end">
             {bagOrder?.status === "PENDING" ? (
               <Modal
                 titleContentModal="Você tem certeza?"

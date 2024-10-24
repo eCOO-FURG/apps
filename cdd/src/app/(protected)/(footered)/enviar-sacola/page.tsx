@@ -31,7 +31,7 @@ export default function Home() {
       subtitle="Envie as sacolas abaixo"
       overflowAuto={true}
     >
-      <div className="w-full h-full flex flex-col justify-between items-center">
+      <div className="w-full h-full flex flex-col gap-16 justify-between items-center">
         <SendBagTable page={page} setTotalItems={setTotalItems} />
         <PagingButton value={page} nextPage={nextPage} backPage={backPage} />
       </div>
