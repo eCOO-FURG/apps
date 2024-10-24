@@ -39,7 +39,7 @@ const producerFooteredPagesInfo: Record<string, FooteredPageInfo> = {
   },
   "/login": {
     hasPreviousPage: true,
-    returnPath: "/",
+    returnPath: "/inicio",
     hasHelpButton: false,
     helpInfo: null,
   },
@@ -98,7 +98,7 @@ const producerFooteredPagesInfo: Record<string, FooteredPageInfo> = {
   },
   "/recuperar-senha": {
     hasPreviousPage: true,
-    returnPath: "/",
+    returnPath: "/login",
     hasHelpButton: true,
     helpInfo: {
       title: "Esqueceu a senha?",
@@ -197,7 +197,7 @@ const cddFooteredPagesInfo: Record<string, FooteredPageInfo> = {
   },
   "/login": {
     hasPreviousPage: true,
-    returnPath: "/",
+    returnPath: "/inicio",
     hasHelpButton: false,
     helpInfo: null,
   },

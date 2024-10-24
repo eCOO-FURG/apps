@@ -41,6 +41,7 @@ export default function Home() {
       titleGap="gap-2"
       subtitle="Informe o período e o tipo de relatório que deseja gerar"
       subtitleClassName="w-80"
+      overflowAuto={true}
     >
       <div className="w-full h-full flex flex-col">
         <div className='flex space-x-3 mb-3 mt-8'>

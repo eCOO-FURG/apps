@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
-import Stepper from "@shared/components/Stepper"
+import Stepper from "@shared/components/Stepper";
 import { ModelPage } from "@shared/components/ModelPage";
 import { useLocalStorage } from "@shared/hooks/useLocalStorage";
 import Loader from "@shared/components/Loader";

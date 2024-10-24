@@ -138,8 +138,8 @@ export default function SendBagMiniTable() {
       {isLoading ? (
         <TableSkeleton />
       ) : bagOrder ? (
-        <div className="w-full h-full flex flex-col justify-between">
-          <div className="max-w-sm mx-auto bg-white rounded-lg">
+        <div className="w-full h-full flex flex-col justify-between overflow-y-auto">
+          <div className="max-w-sm mx-auto bg-white rounded-lg mb-12 overflow-y-auto">
             <div className="flex gap-10 items-start text-theme-primary border-b border-theme-background p-3">
               <span className="w-1/5">Pedido:</span>
               <span className="w-4/5">{bagOrder.id}</span>
