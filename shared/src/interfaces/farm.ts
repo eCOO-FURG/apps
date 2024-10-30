@@ -1,3 +1,4 @@
+import { FarmStatus } from "../types/farm";
 import { ICatalog } from "./catalog";
 import { IOrder } from "./order";
 import { IAdmin } from "./user";
@@ -14,7 +15,7 @@ export interface IFarm {
   id: string;
   name: string;
   caf: string;
-  active: boolean;
+  status: FarmStatus;
   tax: number;
   admin: IAdmin;
   created_at: Date;

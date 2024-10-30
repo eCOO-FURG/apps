@@ -1,0 +1,1 @@
+export type FarmStatus = "ACTIVE" | "INACTIVE" | "PENDING"
