@@ -26,7 +26,7 @@ export default function RootLayout({
           <div className="relative w-full h-inherit flex flex-row">
             <Sidebar />
             <ClientValidation>
-              <div className="w-full h-full p-15 pt-24">{children}</div>
+              <div className="w-full h-full p-15">{children}</div>
             </ClientValidation>
           </div>
         </div>
