@@ -20,6 +20,8 @@ export interface Farm {
   active: boolean
   admin: Admin
   tax: number
+  image: string
+  description: string
   created_at: string
   updated_at: string
 }

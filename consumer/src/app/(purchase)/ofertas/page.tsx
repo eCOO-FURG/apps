@@ -1,6 +1,6 @@
 "use client";
 import { fetchCatologsById } from "@consumer/app/_actions/fetch-catalogs-by-id";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import OrderCard from "@consumer/app/components/OrderCard";
@@ -10,7 +10,11 @@ import { ICatalogMerge } from "@shared/interfaces/catalog";
 import React from "react";
 
 export default function Ofertas() {
-  const params = useParams();
+
+  const searchParams = useSearchParams();
+  const data = searchParams.get('data');
+  const params = data ? JSON.parse(decodeURIComponent(data as string)) : null;
+
 
   const [offers, setOffers] = useState([] as IOfferWithProduct[]);
   const [page, setPage] = useState(1 as number);
