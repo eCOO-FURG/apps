@@ -20,7 +20,6 @@ function Pedidos() {
 
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm<{
     initialDate: string;
@@ -77,7 +76,7 @@ function Pedidos() {
             {
               detail: (
                 <button onClick={handleModal}>
-                  <HiOutlineEye className="w-6 h-6 text-primary-500" />
+                  <HiOutlineEye className="text-primary-500 h-6 w-6" />
                 </button>
               ),
             },
@@ -129,7 +128,7 @@ function Pedidos() {
         isOpen={isOpen}
         closeModal={handleModal}
       >
-        <div className="w-full grid grid-cols-2 mx-auto bg-white rounded-lg">
+        <div className="mx-auto grid w-full grid-cols-2 rounded-lg bg-white">
           <div>
             <div className={styles.containerDetail}>
               <span className="w-1/5">Pedido:</span>
@@ -175,8 +174,8 @@ function Pedidos() {
             </div>
           </div>
         </div>
-        <div className="w-full mx-auto bg-white rounded-lg mt-5">
-          <div className="flex gap-10 items-start text-theme-primary p-3">
+        <div className="mx-auto mt-5 w-full rounded-lg bg-white">
+          <div className="flex items-start gap-10 p-3 text-theme-primary">
             <span className="w-1/5">Conteúdo da sacola:</span>
             <span className="w-4/5">
               <p>2kg - Cebola Roxa</p>
@@ -189,17 +188,17 @@ function Pedidos() {
             </span>
           </div>
         </div>
-        <div className="flex-1 flex gap-2.5">
+        <div className="flex flex-1 gap-2.5">
           <ButtonV2 variant="default" className="bg-error font-medium">
             Estornar
           </ButtonV2>
           <ButtonV2 variant="default" className="bg-theme-primary font-medium">
             Alterar Pagamento
           </ButtonV2>
-          <ButtonV2 variant="default" className="w-auto px-4 bg-theme-primary">
+          <ButtonV2 variant="default" className="w-auto bg-theme-primary px-4">
             <FiArrowLeft size={18} />
           </ButtonV2>
-          <ButtonV2 variant="default" className="w-auto px-4 bg-theme-primary">
+          <ButtonV2 variant="default" className="w-auto bg-theme-primary px-4">
             <FiArrowRight size={18} />
           </ButtonV2>
         </div>
