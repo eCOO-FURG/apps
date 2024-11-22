@@ -1,12 +1,15 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import EmptyBoxInformation from '@shared/components/EmptyBoxInformation';
+import EmptyBoxInformation from "@shared/components/EmptyBoxInformation";
 
 const styles = {
   itemHeader:
     "truncate text-battleship-gray font-inter border-b border-theme-background p-3 text-xs font-semibold text-left",
   itemBody: "border-b truncate text-grayish-blue p-3 text-left",
+  itemHeaderADMIN:
+    "truncate text-theme-primary font-inter border-b border-theme-background p-3 text-xs font-semibold text-left",
+  itemBodyADMIN: "border-b truncate text-theme-primary p-3 text-left",
 };
 
 interface ITableProps {
@@ -16,14 +19,56 @@ interface ITableProps {
     data: { detail: string | JSX.Element; style?: string }[];
   }[];
   onRowClick?: (id: string) => void;
+  type?: string;
 }
 
-const OrderTable = ({ headers, info, onRowClick }: ITableProps) => {
+const OrderTable = ({ headers, info, onRowClick, type }: ITableProps) => {
   if (!info.length) {
     return (
       <EmptyBoxInformation style="m-auto">
         Nenhuma Caixa Encontrada!
       </EmptyBoxInformation>
+    );
+  }
+
+  if (type === "admin") {
+    return (
+      <div className="flex bg-white rounded-2xl pt-4 pl-4 gap-1">
+        <div className="w-full max-h-112 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+          <table className="w-full border-collapse">
+            <thead className="sticky top-0 bg-white z-10">
+              <tr className="text-left border-b border-gray-300">
+                {headers.map((header, index) => (
+                  <th
+                    key={index}
+                    className={twMerge(styles.itemHeaderADMIN, header.style)}
+                  >
+                    {header.label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {info.map((products) => (
+                <tr
+                  key={products.id}
+                  onClick={onRowClick && (() => onRowClick(products.id))}
+                  className="text-center cursor-pointer"
+                >
+                  {products.data.map((product, cellIndex) => (
+                    <td
+                      key={cellIndex}
+                      className={twMerge(styles.itemBodyADMIN, product.style)}
+                    >
+                      {product.detail}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     );
   }
 
@@ -47,7 +92,7 @@ const OrderTable = ({ headers, info, onRowClick }: ITableProps) => {
             {info.map((products) => (
               <tr
                 key={products.id}
-                onClick={() => onRowClick && onRowClick(products.id)}
+                onClick={onRowClick && (() => onRowClick(products.id))}
                 className="text-center cursor-pointer"
               >
                 {products.data.map((product, cellIndex) => (
