@@ -1,9 +1,18 @@
+'use client';
+
+import { useEffect, useState } from "react";
+
 import Button from "@shared/components/Button";
 
-export default function ProducerTable({ name }: { name: string }) {
+interface ProducerTableProps {
+  name: string;
+}
+
+export default function ProducerTable({ name }: ProducerTableProps) {
 
   return (
     <>
+      {name}
       <div className="w-full rounded-t-xl border-b border-gray-400 py-3">
         <div className="flex font-inter h-full font-semibold text-theme-primary">
           <div className="w-1/6 text-center">Foto</div>
@@ -53,7 +62,7 @@ export default function ProducerTable({ name }: { name: string }) {
           <div className="w-1/6 text-left">(00) 98765-4321</div>
           <div className="w-1/6">
             <Button className="flex text-white justify-center items-center bg-error w-25 h-9 text-sm font-semibold rounded-full">
-              Pendente
+              Rejeitado
             </Button>
           </div>
         </div>

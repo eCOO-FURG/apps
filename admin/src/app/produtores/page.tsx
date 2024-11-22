@@ -1,16 +1,21 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import ProducerTable from "../components/ProducerTable";
 import Title from "../components/Title";
 
-import { useDebounce } from "@shared/hooks/useDebounce";
 import SearchInput from "@shared/components/SearchInput";
+import { useDebounce } from "@shared/hooks/useDebounce";
 
 export default function page() {
+
   const [name, setName] = useState("");
   const debounceSearch = useDebounce(name);
+
+  useEffect(() => {
+    console.log(debounceSearch)
+  }, [debounceSearch])
 
   return (
     // <div className="flex gap-8">
@@ -32,7 +37,7 @@ export default function page() {
         </div>
       </div>
       <div className="rounded-xl bg-white">
-        <ProducerTable name={debounceSearch} />
+        <ProducerTable name={name}/>
       </div>
     </div>
   );
