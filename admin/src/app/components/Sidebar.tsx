@@ -1,4 +1,5 @@
 import {
+  HiOutlineCalculator,
   HiOutlineChartPie,
   HiOutlineChartSquareBar,
   HiOutlineChatAlt2,
@@ -17,6 +18,9 @@ export default function Sidebar() {
       <section className="flex flex-col items-center">
         <Navlink href="/" icon={<HiOutlineChartPie />}>
           Painel de controle
+        </Navlink>
+        <Navlink href="/pedidos" icon={<HiOutlineCalculator />}>
+          Pedidos
         </Navlink>
         <Navlink href="/produtos" icon={<HiOutlineShoppingBag />}>
           Meus produtos
