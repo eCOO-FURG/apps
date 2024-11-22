@@ -1,13 +1,12 @@
 import {
+  HiOutlineAnnotation,
   HiOutlineCalculator,
   HiOutlineChartPie,
-  HiOutlineChartSquareBar,
-  HiOutlineChatAlt2,
   HiOutlineCog,
-  HiOutlineCube,
+  HiOutlineCollection,
+  HiOutlineDocumentReport,
   HiOutlineLogin,
-  HiOutlineShoppingBag,
-  HiOutlineUserCircle,
+  HiOutlineUserAdd,
 } from "react-icons/hi";
 
 import Navlink from "./Navlink";
@@ -22,20 +21,17 @@ export default function Sidebar() {
         <Navlink href="/pedidos" icon={<HiOutlineCalculator />}>
           Pedidos
         </Navlink>
-        <Navlink href="/produtos" icon={<HiOutlineShoppingBag />}>
-          Meus produtos
+        <Navlink href="/produtores" icon={<HiOutlineUserAdd />}>
+          Produtores
         </Navlink>
-        <Navlink href="/estoque" icon={<HiOutlineCube />}>
-          Estoque
+        <Navlink href="/produtos" icon={<HiOutlineCollection />}>
+          Produtos
         </Navlink>
-        <Navlink href="/vendas" icon={<HiOutlineChartSquareBar />}>
-          Minhas vendas
+        <Navlink href="/notificar" icon={<HiOutlineAnnotation />}>
+          Enviar notificações
         </Navlink>
-        <Navlink href="/perfil" icon={<HiOutlineUserCircle />}>
-          Meus dados
-        </Navlink>
-        <Navlink href="/ajuda" icon={<HiOutlineChatAlt2 />}>
-          Obter ajuda
+        <Navlink href="/relatorios" icon={<HiOutlineDocumentReport />}>
+          Emitir relatórios
         </Navlink>
       </section>
       <section className="flex flex-col items-center border-t border-theme-highlight pt-4">
