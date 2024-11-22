@@ -1,12 +1,13 @@
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
-import EmptyBoxInformation from '@shared/components/EmptyBoxInformation'
+import EmptyBoxInformation from "@shared/components/EmptyBoxInformation";
 
 const styles = {
   itemHeader:
     "truncate text-battleship-gray font-inter border-b border-theme-background p-3 text-xs font-semibold text-left",
   itemBody: "border-b-[1px] truncate text-grayish-blue p-3 text-left",
+  itemHeaderAdmin: "pb-2 text-sm font-semibold text-theme-primary",
 };
 
 interface ITableProps {
@@ -19,11 +20,12 @@ interface ITableProps {
 }
 
 const Table = ({ headers, info, onRowClick }: ITableProps) => {
-
   if (!info.length) {
     return (
-      <EmptyBoxInformation style="m-auto">Nenhuma Caixa Encontrada!</EmptyBoxInformation>
-    )
+      <EmptyBoxInformation style="m-auto">
+        Nenhuma Caixa Encontrada!
+      </EmptyBoxInformation>
+    );
   }
 
   return (
