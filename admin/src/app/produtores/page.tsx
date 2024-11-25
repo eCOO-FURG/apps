@@ -18,16 +18,20 @@ export default function page() {
   const { handleError } = useHandleError();
 
   useEffect(() => {
-    getFarms({
-      page: 1,
-      farm: debounceSearch,
-    }).then((response) => {
-      if (response.message) {
-        handleError(response.message);
-      }
-      setResult(response);
-      console.log("Response", response);
-    });
+    (() => {
+      getFarms({
+        page: 1,
+        farm: debounceSearch,
+      })
+        .then((response) => {
+          if (response.message) {
+            handleError(response.message);
+            return;
+          }
+          setResult(response);
+          console.log("Response", response);
+        });
+    })();
   }, [debounceSearch])
 
   return (
