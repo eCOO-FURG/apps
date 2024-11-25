@@ -18,6 +18,7 @@ const config: Config = {
           secondary: "var(--color-secondary)",
           background: "var(--color-background)",
         },
+        "text-heading": "#060606",
         "french-gray": "#D1D1D6",
         "slate-blue": "#507080",
         "slate-gray": "#2F4A4D",
@@ -52,6 +53,7 @@ const config: Config = {
       spacing: {
         "10-negative": "-0.625rem",
         inherit: "inherit",
+        "95dvh": "95dvh",
         1.25: ".3125rem",
         1.75: "0.4375rem",
         2.75: "0.6875rem",
