@@ -1,20 +1,33 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import ProducerTable from "../components/ProducerTable";
 import Title from "../components/Title";
 
+import { getFarms } from "@admin/_actions/farm/get-farms";
+
 import SearchInput from "@shared/components/SearchInput";
 import { useDebounce } from "@shared/hooks/useDebounce";
+import { useHandleError } from "@shared/hooks/useHandleError";
 
 export default function page() {
-
-  const [name, setName] = useState("");
-  const debounceSearch = useDebounce(name);
+  const [farm, setFarm] = useState("");
+  const debounceSearch = useDebounce(farm);
+  const [result, setResult] = useState<any>();
+  const { handleError } = useHandleError();
 
   useEffect(() => {
-    console.log(debounceSearch)
+    getFarms({
+      page: 1,
+      farm: debounceSearch,
+    }).then((response) => {
+      if (response.message) {
+        handleError(response.message);
+      }
+      setResult(response);
+      console.log("Response", response);
+    });
   }, [debounceSearch])
 
   return (
@@ -33,11 +46,12 @@ export default function page() {
       <div className="flex w-full items-center justify-between">
         <Title>Produtores</Title>
         <div className="w-2/5">
-          <SearchInput onChange={setName} />
+          <SearchInput onChange={setFarm} />
         </div>
       </div>
       <div className="rounded-xl bg-white">
-        <ProducerTable name={name}/>
+        <ProducerTable farm={farm}/>
+        {result}
       </div>
     </div>
   );

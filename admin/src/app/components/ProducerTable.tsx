@@ -1,18 +1,24 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 
 import Button from "@shared/components/Button";
+import ModalV2 from "@shared/components/ModalV2";
 
 interface ProducerTableProps {
-  name: string;
+  farm: string;
 }
 
-export default function ProducerTable({ name }: ProducerTableProps) {
+export default function ProducerTable({ farm }: ProducerTableProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  
+  const handleModal = () => {
+    setIsOpen((prevState) => !prevState);
+  };
 
   return (
     <>
-      {name}
+      {farm}
       <div className="w-full rounded-t-xl border-b border-gray-400 py-3">
         <div className="flex font-inter h-full font-semibold text-theme-primary">
           <div className="w-1/6 text-center">Foto</div>
@@ -31,7 +37,7 @@ export default function ProducerTable({ name }: ProducerTableProps) {
           <div className="w-1/6 text-left">12345678</div>
           <div className="w-1/6 text-left">(00) 98765-4321</div>
           <div className="w-1/6">
-            <Button className="flex text-white justify-center items-center bg-rain-forest w-25 h-9 text-sm font-semibold rounded-full">
+            <Button onClick={handleModal} className="flex text-white justify-center items-center bg-rain-forest w-25 h-9 text-sm font-semibold rounded-full">
               Aprovado
             </Button>
           </div>
@@ -67,7 +73,14 @@ export default function ProducerTable({ name }: ProducerTableProps) {
           </div>
         </div>
       </div>
+      <ModalV2
+        isOpen={isOpen}
+        closeModal={handleModal}
+        title="Detalhes do Produtor"
+        className="w-110 h-110"
+      >
+        a
+      </ModalV2>
     </>
-    
   );
 }
