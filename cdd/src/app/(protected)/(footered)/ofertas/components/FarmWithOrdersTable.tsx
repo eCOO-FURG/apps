@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
-import { FaBoxOpen } from "react-icons/fa6";
 import StatusFilterButtons from "@shared/components/StatusFilterButton";
 
 import OrderTable from "@shared/components/OrderTable";
@@ -147,7 +146,7 @@ export function FarmWithOrdersTable({ page, setTotalItems }: FarmsProps) {
           />
         ) : farmsFiltered.length === 0 ? (
           <EmptyBox
-            type="box"
+            type="bag"
           />
         ) : (
           <OrderTable headers={headers} info={info} onRowClick={handleClick} />
