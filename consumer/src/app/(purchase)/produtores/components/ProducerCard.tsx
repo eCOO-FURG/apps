@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function ProducerCard(catalog: Catalog) {
   return (
-    <Link href={`/produtor?data=${encodeURIComponent(JSON.stringify(catalog))}`}>
+    <Link href={`/produtor?data=${encodeURIComponent(JSON.stringify({ catalog: catalog, title: catalog.farm.name }))}`}>
       <div className="min-w-87.5 h-25 bg-theme-background flex rounded-2xl m-2.5">
         <div className="flex w-20 h-20 ml-2.5 mt-2.5 mb-2.5 mr-5 bg-theme-highlight rounded-xl">
           <Image
