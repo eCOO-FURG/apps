@@ -6,10 +6,10 @@ import EmptyBoxInformation from "@shared/components/EmptyBoxInformation";
 const styles = {
   itemHeader:
     "truncate text-battleship-gray font-inter border-b border-theme-background p-3 text-xs font-semibold text-left",
-  itemBody: "border-b truncate text-grayish-blue p-3 text-left",
+  itemBody: "border-b truncate font-inter text-grayish-blue p-3 text-left",
   itemHeaderADMIN:
     "truncate text-theme-primary font-inter border-b border-theme-background p-3 text-xs font-semibold text-left",
-  itemBodyADMIN: "border-b truncate text-theme-primary p-3 text-left",
+  itemBodyADMIN: "border-b truncate font-inter text-theme-primary p-3 text-left",
 };
 
 interface ITableProps {

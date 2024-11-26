@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 export interface IUser {
   id: string;
   first_name: string;
@@ -21,12 +23,26 @@ export interface IUserUpdate {
   confirmPassword?: string;
 }
 
-export interface IAdmin {
+export interface IProducer {
   id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string;
+  name: string;
+  status: "ACTIVE" | "PENDING" | "INACTIVE";
+  tally: string;
+  tax: number;
+  description: string | null;
+  admin: IAdmin;
   created_at: Date;
   updated_at: Date | null;
 }
+
+type IAdmin = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  cpf: string;
+  email: string;
+  phone: string;
+  photo: StaticImageData;
+  created_at: string;
+  updated_at: string | null;
+};

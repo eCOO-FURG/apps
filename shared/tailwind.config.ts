@@ -21,6 +21,7 @@ const config: Config = {
         "text-heading": "#060606",
         "french-gray": "#D1D1D6",
         "slate-blue": "#507080",
+        "steel-shadow": "#545F71",
         "slate-gray": "#2F4A4D",
         "rain-forest": "#00735E",
         "ocean-blue": "#229ED9",

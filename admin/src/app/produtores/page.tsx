@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import ProducerTable from "../components/ProducerTable";
+import IProducerTable from "../components/ProducerTable";
 import Title from "../components/Title";
 
 import { getFarms } from "@admin/_actions/farm/get-farms";
@@ -10,33 +10,11 @@ import { getFarms } from "@admin/_actions/farm/get-farms";
 import SearchInput from "@shared/components/SearchInput";
 import { useDebounce } from "@shared/hooks/useDebounce";
 import { useHandleError } from "@shared/hooks/useHandleError"
-
-type Admin = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  cpf: string;
-  email: string;
-  phone: string;
-  created_at: string;
-  updated_at: string | null;
-};
-
-type DataItem = {
-  id: string;
-  name: string;
-  status: "ACTIVE" | "PENDING" | "INACTIVE";
-  tally: string;
-  tax: number;
-  description: string | null;
-  admin: Admin;
-  created_at: string;
-  updated_at: string | null;
-};
+import { IProducer } from "@shared/interfaces/user";
 
 export default function page() {
   const [name, setName] = useState<string>("");
-  const [farms, setFarms] = useState<DataItem[]>();
+  const [farms, setFarms] = useState<IProducer[]>();
   const debounceSearch = useDebounce(name);
   const { handleError } = useHandleError();
 
@@ -49,6 +27,7 @@ export default function page() {
         if (response.message) {
           handleError(response.message);
         }
+        console.log(response.data);
         setFarms(response.data);
       });
     })();
@@ -63,7 +42,7 @@ export default function page() {
         </div>
       </div>
       <div className="rounded-xl bg-white">
-        <ProducerTable farms={farms}/>
+        <IProducerTable farms={farms}/>
       </div>
     </div>
   );
