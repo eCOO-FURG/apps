@@ -84,39 +84,39 @@ export default function ProducerTable({ farms }: ProducerTableProps) {
           isOpen={isOpen}
           closeModal={handleRowClick.bind(null, selectedFarm.id)}
           title="Verificar produtor"
-          className="flex flex-col w-[30%] h-[60%]"
+          className="flex flex-col w-[28%] h-[54%]"
         >
           <div className="w-full h-full rounded-md bg-white font-inter text-theme-primary">
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Nome:</span>
               <span className="w-3/4">{selectedFarm.admin.first_name} {selectedFarm.admin.last_name}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4">
               <span className="w-1/4">Status:</span>
               <span className="w-3/4 font-bold">{convertStatus(selectedFarm.status).name}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Solicitação:</span>
               <span className="w-3/4">{today.format("DD/MM/YYYY [às] HH:mm:ss")}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Negócio:</span>
               <span className="w-3/4">{selectedFarm.name}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Talão:</span>
               <span className="w-3/4">{selectedFarm.tally}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Email:</span>
               <span className="w-3/4">{selectedFarm.admin.email}</span>
             </div>
-            <hr className="pl-0 w-full border-theme-background"/>
+            <hr className="w-full border-theme-background"/>
             <div className="flex w-full h-12 items-center pl-4 pt-1">
               <span className="w-1/4">Celular:</span>
               <span className="w-3/4">{selectedFarm.admin.phone}</span>
