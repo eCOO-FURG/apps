@@ -18,6 +18,7 @@ export interface IFarm {
   active: boolean;
   tax: number;
   description?: string;
+  image?: string;
   admin: IAdmin;
   created_at: Date;
   updated_at: Date | null;

@@ -2,17 +2,27 @@
 
 import { Catalog } from "@consumer/app/_actions/fetch-catalogs";
 import RedirectCart from "@consumer/app/_components/redirectCart";
-import Image from "next/image";
+import ModalV2 from "@shared/components/ModalV2";
+import _ from "lodash";
+import Image, { ImageLoader } from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import FarmPhotos from "./components/FarmPhotos";
+import { useState } from "react";
 
 export default function Produtor() {
   const searchParams = useSearchParams();
   const data = searchParams.get("data");
 
+  const [showPhotos, setShowPhotos] = useState(false);
+
   const catalog: Catalog = data
     ? JSON.parse(decodeURIComponent(data as string)).catalog
     : null;
+
+  const imageLoader: ImageLoader = ({ src }) => {
+    return `https://res.cloudinary.com/dwm7zdljf/image/upload/v1706539060/products/256x256_${src}`;
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -20,13 +30,28 @@ export default function Produtor() {
 
       <div className="flex absolute top-36 left-5 font-poppins">
         <div className="w-25 h-25 z-10">
-          <Image
-            src="/produtor.jpg"
-            className="w-full h-full rounded-xl border-2 border-theme-primary"
-            width={100}
-            height={100}
-            alt={`produtor.jpg`}
-          />
+          {catalog.farm.image ? (
+            <Image
+              className="rounded-xl h-24 w-24"
+              loader={imageLoader}
+              src={catalog.farm.image}
+              width={100}
+              height={100}
+              alt={`${catalog.farm.name.toLowerCase()}.jpg`}
+            />
+          ) : (
+            <Image
+              className="rounded-xl h-24 w-24"
+              src={
+                catalog.farm.tally != "123456789"
+                  ? "/produtor.jpg"
+                  : "/produtor2.jpeg"
+              }
+              width={100}
+              height={100}
+              alt="produtor.jpg"
+            />
+          )}
         </div>
         <div className="flex flex-col">
           <div className="pl-5 pt-10 text-xl text-white">
@@ -46,7 +71,10 @@ export default function Produtor() {
       </div>
 
       <div className="flex ml-5 text-xs gap-4 mt-12">
-        <button className="flex items-center gap-2  w-36 h-10 bg-theme-secondary text-theme-primary font-bold rounded-md">
+        <button
+          onClick={() => setShowPhotos(true)}
+          className="flex items-center gap-2  w-36 h-10 bg-theme-secondary text-theme-primary font-bold rounded-md"
+        >
           <Image
             src="/photograph.png"
             className="ml-6 w-6 h-6 float-left mr-1"
@@ -56,7 +84,13 @@ export default function Produtor() {
           />
           <p>Ver Fotos</p>
         </button>
-
+        <ModalV2
+          children={FarmPhotos([])}
+          title={`Fotos ${catalog.farm.name}`}
+          className="flex flex-col w-full h-full overflow-y-auto"
+          closeModal={() => setShowPhotos(false)}
+          isOpen={showPhotos}
+        />
         <Link
           href={`/ofertas?data=${encodeURIComponent(
             JSON.stringify({
