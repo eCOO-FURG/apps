@@ -3,12 +3,11 @@
 import { Catalog } from "@consumer/app/_actions/fetch-catalogs";
 import RedirectCart from "@consumer/app/_components/redirectCart";
 import ModalV2 from "@shared/components/ModalV2";
-import _ from "lodash";
 import Image, { ImageLoader } from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import FarmPhotos from "./components/FarmPhotos";
 import { useState } from "react";
+import FarmPhotos from "./components/FarmPhotos";
 
 export default function Produtor() {
   const searchParams = useSearchParams();
