@@ -34,8 +34,8 @@ export default function page() {
   }, [debounceSearch])
   
   return (
-    <div className="w-full flex flex-col h-full gap-5">
-      <div className="flex w-full items-center justify-between">
+    <div className="w-full flex flex-col h-full gap-6">
+      <div className="flex w-full items-center justify-between pt-8">
         <Title>Produtores</Title>
         <div className="w-2/5">
           <SearchInput onChange={setName} />
