@@ -12,7 +12,7 @@ const styles = {
   itemBodyADMIN: "border-b truncate font-inter text-theme-primary p-3 text-left",
 };
 
-interface ITableProps {
+interface OrderTableProps {
   headers: Array<{ label: string; style?: string }>;
   info: {
     id: string;
@@ -22,7 +22,7 @@ interface ITableProps {
   type?: string;
 }
 
-const OrderTable = ({ headers, info, onRowClick, type }: ITableProps) => {
+const OrderTable = ({ headers, info, onRowClick }: OrderTableProps) => {
   if (!info.length) {
     return (
       <EmptyBoxInformation style="m-auto">

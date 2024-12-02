@@ -10,7 +10,7 @@ const styles = {
   itemHeaderAdmin: "pb-2 text-sm font-semibold text-theme-primary",
 };
 
-interface ITableProps {
+interface TableProps {
   headers: Array<{ label: string; style?: string }>;
   info: {
     id: string;
@@ -19,7 +19,7 @@ interface ITableProps {
   onRowClick?: (id: string) => void;
 }
 
-const Table = ({ headers, info, onRowClick }: ITableProps) => {
+const Table = ({ headers, info, onRowClick }: TableProps) => {
   if (!info.length) {
     return (
       <EmptyBoxInformation style="m-auto">
