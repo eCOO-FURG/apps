@@ -13,7 +13,6 @@ export default function FarmPhotos(images: string[]) {
                 <div className="w-full">
                     <Image
                     src={image}
-                    //   loader={imageLoader}
                     width={100}
                     height={100}
                     alt={`${image}.jpg`}

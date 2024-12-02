@@ -56,16 +56,6 @@ export default function Produtor() {
           <div className="pl-5 pt-10 text-xl text-white">
             {catalog.farm.name}
           </div>
-          {/* <div className="pl-5 pt-2 text-xs text-theme-default">
-            <Image
-              src="/local.png"
-              className="w-4 h-4 float-left mr-1"
-              width={16}
-              height={16}
-              alt="local.png"
-            />
-            Ilha dos Marinheiros
-          </div> */}
         </div>
       </div>
 
