@@ -57,7 +57,7 @@ export default function ProducerTable({ farms }: ProducerTableProps) {
       data: [
         { 
           detail: item.admin.photo 
-            ? <img src={item.admin.photo.src} alt="Foto do produtor" className="w-18 h-18 rounded-full" />
+            ? <img src={item.admin.photo} alt="Foto do produtor" className="w-18 h-18 rounded-full" />
             : <img src={producer.src} alt="Foto do produtor" className="w-18 h-18 rounded-full" />
         },
         { detail: item.admin.first_name + " " + item.admin.last_name },
