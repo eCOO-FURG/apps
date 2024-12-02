@@ -10,7 +10,7 @@ interface HeaderDetailProps {
 }
 
 const styles = {
-  containerDetail: "flex gap-10 items-start text-theme-primary border-b p-3",
+  containerDetail: "flex items-start text-theme-primary border-b p-3",
 };
 
 function HeaderDetail({
@@ -21,37 +21,28 @@ function HeaderDetail({
   selectStatus,
   content,
 }: HeaderDetailProps) {
+
+  const getClassname = (status: any) => {
+    if (status === selectStatus) {
+      return (["w-1/5 mt-1", "w-4/5 pl-10 mb-2"]);
+    }
+    return (["w-1/5", "w-4/5 pl-10"]);
+  }
+
   return (
     <div className="w-full mx-auto bg-white rounded-lg">
-      <div className={styles.containerDetail}>
-        <span className="w-1/5">Pedido:</span>
-        <span className="w-4/5">{id}</span>
+      {[
+      { label: "Pedido:", value: id },
+      { label: "Status:", value: selectStatus || status },
+      { label: "Produtor:", value: name },
+      { label: "Prazo:", value: time },
+      { label: "Conteúdo:", value: content },
+      ].map((item, index) => (
+      <div key={index} className={styles.containerDetail}>
+        <span className={getClassname(item.value)[0]}>{item.label}</span>
+        <span className={getClassname(item.value)[1]}>{item.value}</span>
       </div>
-      <div className={styles.containerDetail}>
-        {selectStatus ? (
-          <>
-            <span className="w-1/5 mt-1">Status:</span>
-            <span className="w-4/5 mr-3 ml-1 mb-2">{selectStatus}</span>
-          </>
-        ) : (
-          <>
-            <span className="w-1/5">Status:</span>
-            <span className="w-4/5">{status}</span>
-          </>
-        )}
-      </div>
-      <div className={styles.containerDetail}>
-        <span className="w-1/5">Produtor:</span>
-        <span className="w-4/5">{name}</span>
-      </div>
-      <div className={styles.containerDetail}>
-        <span className="w-1/5">Prazo:</span>
-        <span className="w-4/5">{time}</span>
-      </div>
-      <div className={styles.containerDetail}>
-        <span className="w-1/5">Conteúdo:</span>
-        <span className="w-4/5">{content && JSON.stringify(content)}</span>
-      </div>
+      ))}
     </div>
   );
 }
