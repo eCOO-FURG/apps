@@ -5,7 +5,7 @@ import Modal from "react-modal";
 
 import { twMerge } from "tailwind-merge";
 
-interface IModalV2Props {
+interface ModalV2Props {
   isOpen: boolean;
   closeModal: () => void;
   children: React.ReactNode;
@@ -19,7 +19,7 @@ function ModalV2({
   children,
   className,
   title,
-}: IModalV2Props) {
+}: ModalV2Props) {
   return (
     <Modal
       isOpen={isOpen}

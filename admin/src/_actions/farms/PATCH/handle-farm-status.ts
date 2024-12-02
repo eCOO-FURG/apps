@@ -2,15 +2,15 @@
 
 import ApiService from "@shared/service/index";
 
-interface PatchFarmOrdersRequest {
+interface HandleFarmStatusRequest {
   farm_id: string;
   status: "ACTIVE" | "PENDING" | "INACTIVE";
 }
 
-export async function patchFarms({ 
+export async function handleFarmStatus({ 
   farm_id,
   status
-}: PatchFarmOrdersRequest) {
+}: HandleFarmStatusRequest) {
   const response = ApiService.PATCH({
     url: `/farms/${farm_id}`,
     data: { status: status },

@@ -2,15 +2,15 @@
 
 import ApiService from "@shared/service/index";
 
-interface GetFarmOrdersRequest {
+interface ListFarmRequest {
   page: number;
   farm?: string;
 }
 
-export async function getFarms({ 
+export async function listFarms({ 
   page,
   farm = "",
-}: GetFarmOrdersRequest) {
+}: ListFarmRequest) {
   const response = ApiService.GET({
     url: `/farms?page=${page}&farm=${farm}`,
   });

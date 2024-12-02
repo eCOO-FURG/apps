@@ -1,6 +1,4 @@
-import { StaticImageData } from 'next/image';
-
-export interface IUser {
+export interface UserDTO {
   id: string;
   first_name: string;
   last_name: string;
@@ -23,26 +21,26 @@ export interface IUserUpdate {
   confirmPassword?: string;
 }
 
-export interface IProducer {
+export interface ProducerDTO {
   id: string;
   name: string;
   status: "ACTIVE" | "PENDING" | "INACTIVE";
   tally: string;
   tax: number;
   description: string | null;
-  admin: IAdmin;
+  admin: AdminDTO;
   created_at: Date;
   updated_at: Date | null;
 }
 
-type IAdmin = {
+type AdminDTO = {
   id: string;
   first_name: string;
   last_name: string;
   cpf: string;
   email: string;
   phone: string;
-  photo: StaticImageData;
+  photo: string;
   created_at: string;
   updated_at: string | null;
 };

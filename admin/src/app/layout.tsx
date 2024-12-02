@@ -24,7 +24,7 @@ export default function RootLayout({
           <Toaster richColors position="top-right" />
           <div className="relative w-full h-inherit flex flex-row">
             <Sidebar />
-            <div className="w-full h-full p-15">{children}</div>
+            <main className="w-full h-full p-15">{children}</main>
           </div>
         </div>
       </body>

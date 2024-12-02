@@ -2,32 +2,31 @@
 
 import { useEffect, useState } from "react";
 
-import IProducerTable from "../components/ProducerTable";
+import ProducerTable from "../components/ProducerTable";
 import Title from "../components/Title";
 
-import { getFarms } from "@admin/_actions/farm/get-farms";
+import { listFarms } from "../../_actions/farms/GET/list-farms";
 
 import SearchInput from "@shared/components/SearchInput";
 import { useDebounce } from "@shared/hooks/useDebounce";
 import { useHandleError } from "@shared/hooks/useHandleError"
-import { IProducer } from "@shared/interfaces/user";
+import { ProducerDTO } from "@shared/interfaces/user";
 
 export default function page() {
   const [name, setName] = useState<string>("");
-  const [farms, setFarms] = useState<IProducer[]>();
+  const [farms, setFarms] = useState<ProducerDTO[]>();
   const debounceSearch = useDebounce(name);
   const { handleError } = useHandleError();
 
   useEffect(() => {
     (() => {
-      getFarms({
+      listFarms({
         page: 1,
         farm: debounceSearch,
       }).then((response) => {
         if (response.message) {
           handleError(response.message);
         }
-        console.log(response.data);
         setFarms(response.data);
       });
     })();
@@ -42,7 +41,7 @@ export default function page() {
         </div>
       </div>
       <div className="rounded-xl bg-white">
-        <IProducerTable farms={farms}/>
+        <ProducerTable farms={farms}/>
       </div>
     </div>
   );

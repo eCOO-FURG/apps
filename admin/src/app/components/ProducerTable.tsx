@@ -4,9 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 
-import { patchFarms } from "@admin/_actions/farm/patch-farms";
+import { handleFarmStatus } from "../../_actions/farms/PATCH/handle-farm-status";
 
-import { IProducer } from "@shared/interfaces/user";
+import { ProducerDTO } from "@shared/interfaces/user";
 import convertStatus from "@shared/utils/convert-status";
 import Button from "@shared/components/Button";
 import ModalV2 from "@shared/components/ModalV2";
@@ -14,27 +14,33 @@ import OrderTable from "@shared/components/OrderTable";
 import producer from '@shared/assets/public/producer.png';
 
 interface ProducerTableProps {
-  farms?: IProducer[];
+  farms?: ProducerDTO[];
 }
 
 export default function ProducerTable({ farms }: ProducerTableProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedFarm, setSelectedFarm] = useState<IProducer | null>(null);
+  const [selectedFarm, setSelectedFarm] = useState<ProducerDTO | null>(null);
   const router = useRouter();
   const today = dayjs();
 
   const handleRowClick = (id: string) => {
-    const farm = farms?.find((farm: IProducer) => farm.id === id);
+    const farm = farms?.find((farm: ProducerDTO) => farm.id === id);
     setSelectedFarm(farm || null);
     setIsOpen((prevState) => !prevState);
   };
 
-  const handleFarmStatus = (status: "ACTIVE" | "PENDING" | "INACTIVE") => {
+  const handleFarmStatusChange = (status: "ACTIVE" | "PENDING" | "INACTIVE") => {
     if (!selectedFarm) return;
-    patchFarms({ farm_id: selectedFarm.id, status });
+    handleFarmStatus({ farm_id: selectedFarm.id, status });
     setIsOpen((prevState) => !prevState);
     router.push('/');
   };
+
+  const getColorStatus = (status: "ACTIVE" | "PENDING" | "INACTIVE") => {
+    if (status === "ACTIVE") return "bg-rain-forest";
+    else if (status === "INACTIVE") return "bg-error";
+    return "bg-steel-shadow";
+  }
 
   const headers = [
     { label: "Foto" },
@@ -61,13 +67,7 @@ export default function ProducerTable({ farms }: ProducerTableProps) {
         {
           detail: (
             <Button
-              className={`flex ${
-              item.status === "ACTIVE"
-                ? "bg-rain-forest"
-                : item.status === "PENDING"
-                ? "bg-steel-shadow"
-                : "bg-error"
-              } text-white justify-center items-center w-25 h-9 text-sm font-semibold rounded-full`}
+              className={`flex ${getColorStatus(item.status)} text-white justify-center items-center w-25 h-9 text-sm font-semibold rounded-full`}
             >
               {convertStatus(item.status).name}
             </Button>
@@ -84,54 +84,38 @@ export default function ProducerTable({ farms }: ProducerTableProps) {
           isOpen={isOpen}
           closeModal={handleRowClick.bind(null, selectedFarm.id)}
           title="Verificar produtor"
-          className="flex flex-col w-[28%] h-[54%]"
         >
           <div className="w-full h-full rounded-md bg-white font-inter text-theme-primary">
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Nome:</span>
-              <span className="w-3/4">{selectedFarm.admin.first_name} {selectedFarm.admin.last_name}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4">
-              <span className="w-1/4">Status:</span>
-              <span className="w-3/4 font-bold">{convertStatus(selectedFarm.status).name}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Solicitação:</span>
-              <span className="w-3/4">{today.format("DD/MM/YYYY [às] HH:mm:ss")}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Negócio:</span>
-              <span className="w-3/4">{selectedFarm.name}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Talão:</span>
-              <span className="w-3/4">{selectedFarm.tally}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Email:</span>
-              <span className="w-3/4">{selectedFarm.admin.email}</span>
-            </div>
-            <hr className="w-full border-theme-background"/>
-            <div className="flex w-full h-12 items-center pl-4 pt-1">
-              <span className="w-1/4">Celular:</span>
-              <span className="w-3/4">{selectedFarm.admin.phone}</span>
-            </div>
+          <div className="w-full h-full rounded-md bg-white font-inter text-theme-primary">
+            {[
+              { label: "Nome", value: `${selectedFarm.admin.first_name} ${selectedFarm.admin.last_name}` },
+              { label: "Status", value: convertStatus(selectedFarm.status).name, isBold: true },
+              { label: "Solicitação", value: today.format("DD/MM/YYYY [às] HH:mm:ss") },
+              { label: "Negócio", value: selectedFarm.name },
+              { label: "Talão", value: selectedFarm.tally },
+              { label: "Email", value: selectedFarm.admin.email },
+              { label: "Celular", value: selectedFarm.admin.phone },
+            ].map((item, index) => (
+              <div key={index}>
+              <div className="flex w-full h-12 items-center pl-4 pt-1">
+                <span className="w-1/4">{item.label}:</span>
+                <span className={`w-3/4 ${item.isBold ? 'font-bold' : ''}`}>{item.value}</span>
+              </div>
+              <hr className="w-full border-theme-background"/>
+              </div>
+            ))}
+          </div>
           </div>
           <div className="w-full flex pt-5 gap-4 font-inter font-semibold">
             <Button 
               className="w-full h-14 rounded-md text-white bg-error"
-              onClick={() => handleFarmStatus("INACTIVE")}
+              onClick={() => handleFarmStatusChange("INACTIVE")}
             >
               Rejeitar
             </Button>
             <Button 
               className="w-full h-14 rounded-md text-white bg-rain-forest"
-              onClick={() => handleFarmStatus("ACTIVE")}
+              onClick={() => handleFarmStatusChange("ACTIVE")}
             >
               Aprovar
             </Button>
