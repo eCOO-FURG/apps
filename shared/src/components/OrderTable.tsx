@@ -22,7 +22,7 @@ interface OrderTableProps {
   type?: string;
 }
 
-const OrderTable = ({ headers, info, onRowClick }: OrderTableProps) => {
+const OrderTable = ({ headers, info, type, onRowClick }: OrderTableProps) => {
   if (!info.length) {
     return (
       <EmptyBoxInformation style="m-auto">
