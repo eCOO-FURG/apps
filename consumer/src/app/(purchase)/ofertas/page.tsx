@@ -4,7 +4,7 @@ import RedirectCart from "@consumer/app/_components/redirectCart";
 import OrderCard from "@consumer/app/components/OrderCard";
 import { useHandleError } from "@shared/hooks/useHandleError";
 import { useLocalStorage } from "@shared/hooks/useLocalStorage";
-import { CatalogMergeDTO, OfferDTO } from "@shared/interfaces/dtos";
+import { CatalogMergeDTO, FarmDTO, OfferDTO } from "@shared/interfaces/dtos";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { useInView } from "react-intersection-observer";
@@ -17,6 +17,7 @@ export default function Ofertas() {
 
 
   const [offers, setOffers] = useState([] as OfferDTO[]);
+  const [farm, setFarm] = useState({} as FarmDTO);
   const [page, setPage] = useState(1 as number);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -48,7 +49,8 @@ export default function Ofertas() {
         handleError(response.message as string);
       } else if (response.data) {
         const responseFarmCatalogs: CatalogMergeDTO = response.data;
-        let offersFarm = responseFarmCatalogs?.offers ?? [];
+        setFarm(responseFarmCatalogs.farm as FarmDTO);
+        let offersFarm: OfferDTO[] = responseFarmCatalogs?.offers ?? [];
         offersFarm = offersFarm.filter(
           (offer: OfferDTO) =>
             offer.amount >= mapQuantity[offer.product.pricing]
@@ -58,7 +60,7 @@ export default function Ofertas() {
           setHasMore(false);
           return;
         }
-
+        
         const newOffers = [...offers, ...offersFarm];
         setOffers(newOffers as OfferDTO[]);
         const nextPage = page + 1;
@@ -82,7 +84,7 @@ export default function Ofertas() {
       <div className="px-3 w-full overflow-y-scroll flex flex-col items-center gap-3.5 h-full pt-3.5">
         {offers && offers.length !== 0 ? (
           offers.map((offer, index) => {
-            return <OrderCard key={index} offer={offer} exclude={false} />;
+            return <OrderCard key={index} offer={offer} farm={farm} exclude={false} />;
           })
         ) : (
           <div className="w-full text-center p-2">
