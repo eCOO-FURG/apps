@@ -54,7 +54,7 @@ export default function Page() {
       overflowAuto={true}
     >
       <div className="w-full flex flex-col justify-start items-center gap-9 mt-3">
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form className="w-full flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <CustomInput
             label="E-mail"
             register={register("email")}
