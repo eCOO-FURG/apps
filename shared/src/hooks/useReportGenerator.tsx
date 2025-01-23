@@ -15,14 +15,14 @@ export function useReportGenerator() {
   > = {
     sales: (date_from?: string, date_to?: string) =>
       fetchSalesReport({ date_from, date_to }),
+    
   };
 
   const reportActions: Record<ReportActions, (id: string) => Promise<any>> = {
     "list-bags": (id: string) => printDeliveriesReport({ cycle_id: id }),
+    "list-bags-withdrawn": (id: string) => printDeliveriesReport({ cycle_id: id, withdraw: true }),
+    "cash-flow-cdd": (id: string) => printDeliveriesReport({ cycle_id: id, offers: true }),
     "list-offers": () => {
-      return Promise.resolve();
-    },
-    "cash-flow-cdd": () => {
       return Promise.resolve();
     },
     "cash-flow-producer": () => {
