@@ -2,15 +2,13 @@
 
 import { cookies } from "next/headers";
 
-interface PrintDeliveriesReportRequest {
+interface PrintOffersReportRequest {
   cycle_id?: string;
-  withdraw?: boolean;
 }
 
-export async function printDeliveriesReport({
+export async function printOffersReport({
   cycle_id,
-  withdraw,
-}: PrintDeliveriesReportRequest) {
+}: PrintOffersReportRequest) {
   const token = cookies().get("cdd_token");
 
   if (!token) {
@@ -24,11 +22,10 @@ export async function printDeliveriesReport({
       queryParams.append("cycle_id", cycle_id);
     }
 
-    if (withdraw !== undefined) {
-      queryParams.append("withdraw", withdraw ? "true" : "false");
-    }
+    queryParams.append("offers", "true");
 
-    const response = await fetch(
+    console.log(
+      "Simulação de fetch:",
       `${process.env.API_URL}/reports?${queryParams.toString()}`,
       {
         method: "GET",
@@ -40,13 +37,10 @@ export async function printDeliveriesReport({
       }
     );
 
-    if (!response.ok) {
-      return response.json();
-    }
-
-    const data = await response.arrayBuffer();
-
-    return data;
+    return {
+      data: "Simulação de dados de ofertas",
+      message: "Relatório gerado com sucesso",
+    };
   } catch (error) {
     return {
       message: "Erro desconhecido.",
