@@ -6,7 +6,8 @@ export type ReportActions =
   | "list-offers"
   | "cash-flow-cdd"
   | "cash-flow-producer"
-  | "offer-history";
+  | "offer-history"
+  | "fetch-inbound";
 
 export type ReportButtonData = {
   name: string;

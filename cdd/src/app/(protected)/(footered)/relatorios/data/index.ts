@@ -13,7 +13,7 @@ export const reportButtonData: ReportButtonData = [
   },
   {
     name: "Recebimento de Ofertas",
-    onClick: "cash-flow-cdd",
+    onClick: "fetch-inbound",
     disabled: false
   },
 ];
