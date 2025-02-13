@@ -20,8 +20,8 @@ export function useReportGenerator() {
   };
 
   const reportActions: Record<ReportActions, (id: string, since?: string, before?: string) => Promise<any>> = {
-    "list-bags": (id: string) => printDeliveriesReport({ cycle_id: id }),
-    "list-bags-withdrawn": (id: string) => printDeliveriesReport({ cycle_id: id, withdraw: true }),
+    "list-bags": (id: string) => printDeliveriesReport({ cycle_id: id, type: "pdf" }),
+    "list-bags-withdrawn": (id: string) => printDeliveriesReport({ cycle_id: id, withdraw: true, type: "pdf" }),
     "cash-flow-cdd": (id: string) => printOffersReport({ cycle_id: id }),
     "list-offers": () => {
       return Promise.resolve();
@@ -71,7 +71,7 @@ export function useReportGenerator() {
     }
   };
 
-  const generateReport = async (type: ReportActions, id: string, since: string, before: string) => {
+  const generateReport = async (type: ReportActions, id: string, since?: string, before?: string) => {
     try {
       const action = reportActions[type];
 

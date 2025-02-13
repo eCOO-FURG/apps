@@ -5,11 +5,13 @@ import { cookies } from "next/headers";
 interface PrintDeliveriesReportRequest {
   cycle_id?: string;
   withdraw?: boolean;
+  type?: string;
 }
 
 export async function printDeliveriesReport({
   cycle_id,
   withdraw,
+  type = "pdf",
 }: PrintDeliveriesReportRequest) {
   const token = cookies().get("cdd_token");
 
@@ -28,6 +30,10 @@ export async function printDeliveriesReport({
       queryParams.append("withdraw", withdraw ? "true" : "false");
     }
 
+    queryParams.append("type", type);
+
+    console.log(`${process.env.API_URL}/reports/sales?${queryParams.toString()}`,)
+    
     const response = await fetch(
       `${process.env.API_URL}/reports/sales?${queryParams.toString()}`,
       {
@@ -44,12 +50,8 @@ export async function printDeliveriesReport({
       return response.json();
     }
 
-    const data = await response.arrayBuffer();
-
-    return data;
+    return await response.arrayBuffer();
   } catch (error) {
-    return {
-      message: "Erro desconhecido.",
-    };
+    return { message: "Erro desconhecido." };
   }
 }

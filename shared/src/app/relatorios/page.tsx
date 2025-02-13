@@ -14,8 +14,11 @@ import { HiOutlineInformationCircle } from "react-icons/hi";
 
 export default function Home({ reportData }: { reportData: ReportButtonData }) {
   const [isPending, startTransition] = useTransition();
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [startDate, setStartDate] = useState<Date | undefined>(undefined);
+  const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+
+  const handleChangeInitialDate = (value: Date) => setStartDate(value);
+  const handleChangeFinalDate = (value: Date) => setEndDate(value);
 
   const { getFromStorage } = useLocalStorage();
   const { generateReport } = useReportGenerator();
@@ -31,7 +34,17 @@ export default function Home({ reportData }: { reportData: ReportButtonData }) {
 
       const { id } = cycle;
 
-      generateReport(name, id, startDate, endDate);
+      const formatDate = (date?: Date) =>
+        date
+          ? `${date.getDate().toString().padStart(2, "0")}-${(date.getMonth() + 1)
+              .toString()
+              .padStart(2, "0")}-${date.getFullYear()}`
+          : undefined;
+  
+      const formattedInitialDate = formatDate(startDate);
+      const formattedFinalDate = formatDate(endDate);
+          
+      generateReport(name, id, formattedInitialDate, formattedFinalDate);
     });
   };
 
@@ -45,16 +58,16 @@ export default function Home({ reportData }: { reportData: ReportButtonData }) {
     >
       <div className="w-full h-full flex flex-col">
         <div className="flex flex-col mb-3 mt-8 gap-6">
-          <DateInput
-            label="Data inicial"
-            value={startDate}
-            onChange={setStartDate}
-          />
-          <DateInput
-            label="Data final"
-            value={endDate}
-            onChange={setEndDate}
-          />
+        <DateInput
+          label="Data inicial"
+          value={startDate}
+          onChange={handleChangeInitialDate}
+        />
+        <DateInput
+          label="Data final"
+          value={endDate}
+          onChange={handleChangeFinalDate}
+        />
         </div>
 
         <div className="w-full h-full flex flex-col justify-between mb-2 mt-8">
