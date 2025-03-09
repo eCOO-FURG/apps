@@ -1,7 +1,7 @@
 "use client";
 
 import { notFound, useParams } from "next/navigation";
-import { useState } from "react";
+import {useState } from "react";
 
 import Modal from "@shared/components/Modal";
 import TableSkeleton from "@shared/components/TableSkeleton";
@@ -59,6 +59,7 @@ export default function SendBagMiniTable() {
 
   const isLoading = isLoadingFetchBag || isLoadingHandleBag;
 
+
   return (
     <div className="w-full h-full flex flex-col justify-between items-center gap-3">
       {isLoading && <TableSkeleton />}
@@ -80,9 +81,11 @@ export default function SendBagMiniTable() {
               currentStatus !== "SEPARATED" ? (
                 <div className="w-full">
                   <SelectInput
+                    style={{ minWidth: "150px" }}
                     placeholder="Selecione o status"
                     options={bagStatusOptions}
                     onChange={(value) => {
+                      console.log("Novo status selecionado: ", value);
                       setBagStatus(value);
                       setIsStatusChanged(value !== currentStatus);
                     }}

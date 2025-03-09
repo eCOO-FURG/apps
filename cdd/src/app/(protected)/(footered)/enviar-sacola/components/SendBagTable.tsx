@@ -75,7 +75,7 @@ export default function SendBagTable() {
   ];
 
   const info =
-    bags.length > 0
+    bags?.length > 0
       ? bags.map((bag) => ({
           id: bag.id,
           data: [
