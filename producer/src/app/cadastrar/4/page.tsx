@@ -84,8 +84,8 @@ export default function FifthStep() {
         />
         <CustomInput
           register={register("tally")}
-          label="Número do Talão"
-          placeholder="Insira o número do Talão"
+          label="Número da Inscrição Estadual"
+          placeholder="Insira da Inscrição Estadual"
           type="number"
           errorMessage={errors.tally?.message}
           maxLength={12}
