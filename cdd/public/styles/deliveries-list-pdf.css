@@ -157,7 +157,7 @@ body {
 }
 
 .bag-info--pedido p {
-    font-size: 12pt;
+    font-size: 10pt;
     font-weight: bolder;
 }
 
@@ -165,15 +165,15 @@ body {
     width: 19.5%;
 }
 
-.bag-info--conteudo {
+.nfo--conteudo {
     width: 40%;
 }
 
-.bag-info--pagamento {
+.nfo--pagamento {
     width: 15.5%;
 }
 
-.bag-info--cobrar {
+.nfo--cobrar {
     width: 20%;
 }
 

@@ -48,11 +48,7 @@ function HeaderDetail({
         {rows.map((row, index) => (
           <MiniTable.Row key={index}>
             <MiniTable.HeaderCell>{row.title}</MiniTable.HeaderCell>
-            <MiniTable.Cell
-              className={`col-span-2 relative ${row.className || ""}`}
-            >
-              {row.value}
-            </MiniTable.Cell>
+            <MiniTable.Cell className="col-span-2 mx-4 my-2">{row.value}</MiniTable.Cell>
           </MiniTable.Row>
         ))}
       </MiniTable.Body>
