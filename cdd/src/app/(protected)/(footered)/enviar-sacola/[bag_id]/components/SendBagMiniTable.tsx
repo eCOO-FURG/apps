@@ -79,7 +79,7 @@ export default function SendBagMiniTable() {
             }
             selectStatus={
               currentStatus !== "SEPARATED" ? (
-                <div className="w-full">
+                <div className="w-[110px]">
                   <SelectInput
                     style={{ minWidth: "150px" }}
                     placeholder="Selecione o status"
@@ -89,8 +89,10 @@ export default function SendBagMiniTable() {
                       setBagStatus(value);
                       setIsStatusChanged(value !== currentStatus);
                     }}
-                    defaultOption={bagStatusOptions.find(
-                      (option) => option.value === bag.status
+                    defaultOption={bagStatusOptions.find((option) =>
+                      isStatusChanged
+                        ? bagStatus === option.value
+                        : option.value === bag.status
                     )}
                   />
                 </div>
@@ -116,7 +118,7 @@ export default function SendBagMiniTable() {
                   handleStatusBag(bag.id, "DISPATCHED");
                 }}
               />
-            ) : bag.status && isStatusChanged ? (
+            ) : bag.status && isStatusChanged && bagStatus !== bag.status ? (
               <Modal
                 titleOpenModal="Salvar"
                 titleContentModal="Você tem certeza?"
@@ -134,7 +136,19 @@ export default function SendBagMiniTable() {
                   handleStatusBag(bag.id, bagStatus as BagStatus["send"]);
                 }}
               />
-            ) : null}
+            ) : (
+              <>
+                <span className="text-center mt-6 text-slate-gray">
+                  {`Sacola já ${bagStatusOptions
+                    .find((option) =>
+                      isStatusChanged
+                        ? bagStatus === option.value
+                        : option.value === bag.status
+                    )
+                    ?.label.toLowerCase()}`}
+                </span>
+              </>
+            )}
           </div>
         </>
       )}

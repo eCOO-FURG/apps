@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 
 import emptyBox from "@shared/assets/images/empty-box.webp";
 
-type EmptyBoxType = "search" | "bag" | "box" | "producer";
+type EmptyBoxType = "search" | "bag" | "box" | "producer" | "payment";
 
 interface EmptyBoxProps {
   type: EmptyBoxType;
@@ -11,26 +11,37 @@ interface EmptyBoxProps {
 
 export default function EmptyBox({ type }: EmptyBoxProps) {
   const [boxText, setBoxText] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
 
   useEffect(() => {
     if (type === "search") {
       setBoxText("Não encontramos resultados para a sua pesquisa.");
       return;
-    } if (type === "producer") {
+    }
+    if (type === "producer") {
       setBoxText("Nenhum produtor encontrado.");
       return;
     }
+    if (type === "payment") {
+      setWidth(150)
+      setHeight(90)
+      setBoxText("Nenhum pagamento encontrado.");
+      return;
+    }
+    setWidth(180);
+    setHeight(100);
     setBoxText("Nenhuma sacola encontrada!");
   }, [type]);
 
   return (
     <div className="flex-grow flex h-full">
-      <div className="flex flex-col w-full pb-20 justify-center gap-4 items-center">
+      <div className="flex flex-col w-full justify-center gap-4 items-center">
         <Image
           src={emptyBox}
           alt="bag"
-          width={180}
-          height={100}
+          width={width}
+          height={height}
           quality={100}
           className="object-contain"
         />

@@ -26,9 +26,10 @@ function HeaderDetail({
     {
       title: "Status:",
       value: selectStatus ?? status,
+      className: selectStatus ? "!overflow-visible" : "",
     },
     {
-      title: "Produtor:",
+      title: "Consumidor:",
       value: name,
     },
     {
