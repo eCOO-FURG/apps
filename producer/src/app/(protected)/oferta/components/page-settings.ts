@@ -20,6 +20,10 @@ const pageSettings: { [key: string]: PageSettings } = {
     title: "Qual o preço do produto?",
     subtitle: "Qual o preço que o produto será vendido?",
   },
+  expirationDate: {
+    title: "Qual a data de validade?",
+    subtitle: "Qual a expectativa de validade em que o produto mantém boas condições de comercialização?",
+  },
   description: {
     title: "Faltou alguma coisa?",
     subtitle:

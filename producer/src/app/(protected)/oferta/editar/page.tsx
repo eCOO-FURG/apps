@@ -17,6 +17,7 @@ import {
   InputAmount,
   InputDescription,
   InputPrice,
+  InputValidDate,
   ReviewOffer,
 } from "../components";
 
@@ -29,7 +30,7 @@ export default function Home() {
   const { handleError } = useHandleError();
 
   const minStep: number = 1;
-  const maxStep: number = 4;
+  const maxStep: number = 5;
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,7 +55,11 @@ export default function Home() {
 
   const handleNextStep = () => {
     if (currentStep < maxStep) {
-      setCurrentStep(currentStep + 1);
+      if (currentStep === 2 && offer.product.perishable) {
+        setCurrentStep(currentStep + 2);
+      } else {
+        setCurrentStep(currentStep + 1);
+      }
     }
   };
 
@@ -128,13 +133,17 @@ export default function Home() {
               <InputPrice
                 handleNextStep={handleNextStep}
                 price={offer.price ?? 0}
-                expires_at={offer.expires_at ?? new Date()}
-                perishable={offer.product.perishable}
-                setExpiresAt={(expires_at) => setOffer({ ...offer, expires_at })}
                 setPrice={(price) => setOffer({ ...offer, price: price })}
             />
             )}
             {currentStep === 3 && (
+              <InputValidDate
+                handleNextStep={handleNextStep}
+                expires_at={offer.expires_at ?? new Date()}
+                setExpiresAt={(expires_at) => setOffer({ ...offer, expires_at })}
+              />
+            )}
+            {currentStep === 4 && (
               <InputDescription
                 handleNextStep={handleNextStep}
                 description={offer.description ?? ""}
@@ -143,7 +152,7 @@ export default function Home() {
                 }
               />
             )}
-            {currentStep === 4 && (
+            {currentStep === 5 && (
               <ReviewOffer
                 productId={offer.product.id ?? ""}
                 productName={offer.product.name ?? ""}
