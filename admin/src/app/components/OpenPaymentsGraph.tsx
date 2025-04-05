@@ -27,7 +27,7 @@ interface DailyPayment {
 interface StatsProps {
   sum: number;
   count: number;
-  daily: Record<string, Omit<DailyPayment, "date">>; // ← alterado aqui
+  daily: Record<string, Omit<DailyPayment, "date">>;
 }
 
 interface Stats {
@@ -35,7 +35,6 @@ interface Stats {
 }
 
 export default function OpenPaymentsGraph({ stats }: Stats) {
-  // Convertendo o objeto daily em array
   const dailyArray: DailyPayment[] = Object.entries(stats.daily).map(
     ([date, data]) => ({
       date,
