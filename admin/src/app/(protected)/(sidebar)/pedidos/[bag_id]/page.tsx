@@ -40,9 +40,11 @@ const BagDetailsPage = () => {
     editSelectedPayment,
     updateSelectedPayment,
     startNewPayment,
+    isLoadingBag, 
   } = useBagDetailsPage();
 
-  if (!bagDetails) return null;
+  if (isLoadingBag) return <TableSkeleton />;
+
 
   return (
     <>

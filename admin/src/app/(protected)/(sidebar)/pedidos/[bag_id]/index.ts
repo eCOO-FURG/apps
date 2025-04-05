@@ -17,11 +17,12 @@ const useBagDetailsPage = () => {
   const [isPending, startTransition] = useTransition();
   const [bagDetails, setBagDetails] = useState<BagDTO>();
   const [paymentsPage, setPaymentsPage] = useState(1);
-  const [selectedPayment, setSelectedPayment] = useState<PaymentDTO | null>();
+  const [selectedPayment, setSelectedPayment] = useState<PaymentDTO | null>(null);
   const [createPaymentModalIsOpen, setCreatePaymentModalIsOpen] = useState(false);
   const [paymentModalIsOpen, setPaymentModalIsOpen] = useState(false);
   const [loadingCreatePayment, setLoadingCreatePayment] = useState(false);
   const [loadingUpdatePayment, setLoadingUpdatePayment] = useState(false);
+  const [isLoadingBag, setIsLoadingBag] = useState(true);
 
   const { bag_id } = useParams();
   const router = useRouter();
@@ -31,12 +32,6 @@ const useBagDetailsPage = () => {
     notFound();
   }
 
-  useEffect(() => {
-    startTransition(() => {
-      getBagDetails({ bagId: bag_id.toString(), paymentsPage });
-    });
-  }, [paymentsPage, loadingCreatePayment]);
-
   const getBagDetails = ({
     bagId,
     paymentsPage,
@@ -44,27 +39,36 @@ const useBagDetailsPage = () => {
     bagId: string;
     paymentsPage: number;
   }) => {
+    setIsLoadingBag(true);
     getBagById({ bagId, paymentsPage })
       .then((response) => {
         if (response.message) return handleError(response.message);
-        setBagDetails(response.data);
+        setBagDetails({
+          ...response.data,
+          payments: response.data.payments ?? [],
+        });
       })
       .catch(() => {
         toast.error("Erro desconhecido.");
+      })
+      .finally(() => {
+        setIsLoadingBag(false);
       });
   };
 
+  useEffect(() => {
+    startTransition(() => {
+      getBagDetails({ bagId: bag_id.toString(), paymentsPage });
+    });
+  }, [paymentsPage, loadingCreatePayment]);
+
   const nextPaymentsPage = () => {
-    if (bagDetails && bagDetails.payments.length < 20) {
-      return;
-    }
+    if (bagDetails && bagDetails.payments.length < 20) return;
     setPaymentsPage((prev) => prev + 1);
   };
 
   const prevPaymentsPage = () => {
-    if (paymentsPage > 1) {
-      setPaymentsPage((prev) => prev - 1);
-    }
+    if (paymentsPage > 1) setPaymentsPage((prev) => prev - 1);
   };
 
   const navigateToBagsList = () => {
@@ -78,7 +82,7 @@ const useBagDetailsPage = () => {
 
   const startNewPayment = () => {
     setCreatePaymentModalIsOpen(true);
-  }
+  };
 
   const closePaymentModal = () => {
     setPaymentModalIsOpen(false);
@@ -95,35 +99,35 @@ const useBagDetailsPage = () => {
       ["CREDIT", "DEBIT"].includes(updatedPayment.method) &&
       !updatedPayment.flag
     ) {
-      updatedPayment = { ...updatedPayment, flag: "VISA" };
+      updatedPayment.flag = "VISA";
     }
 
     setSelectedPayment(updatedPayment);
   };
 
   const createNewPayment = (value: CreatePaymentDTO) => {
-
     setLoadingCreatePayment(true);
     createPayment({
       data: {
         bag_id: value.bag_id,
         method: value.method,
         flag: value.flag,
-      }
-    }).then((response) => {
-      if (response.message) return handleError(response.message);
-      closePaymentModal();
-      toast.success("Pagamento criado com sucesso.");
+      },
     })
-    .catch(() => {
-      toast.error("Erro desconhecido.");
-    })
-    .finally(() => {
-      setLoadingCreatePayment(false);
-    });
+      .then((response) => {
+        if (response.message) return handleError(response.message);
+        closePaymentModal();
+        toast.success("Pagamento criado com sucesso.");
+      })
+      .catch(() => {
+        toast.error("Erro desconhecido.");
+      })
+      .finally(() => {
+        setLoadingCreatePayment(false);
+      });
   };
 
-  const updateSelectedPayment = async () => {
+  const updateSelectedPayment = () => {
     if (!selectedPayment) return;
 
     setLoadingUpdatePayment(true);
@@ -174,6 +178,7 @@ const useBagDetailsPage = () => {
     selectedPayment,
     loadingCreatePayment,
     loadingUpdatePayment,
+    isLoadingBag,
     nextPaymentsPage,
     prevPaymentsPage,
     navigateToBagsList,
