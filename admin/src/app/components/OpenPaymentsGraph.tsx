@@ -27,7 +27,7 @@ interface DailyPayment {
 interface StatsProps {
   sum: number;
   count: number;
-  daily: DailyPayment[];
+  daily: Record<string, Omit<DailyPayment, "date">>; // ← alterado aqui
 }
 
 interface Stats {
@@ -35,8 +35,16 @@ interface Stats {
 }
 
 export default function OpenPaymentsGraph({ stats }: Stats) {
+  // Convertendo o objeto daily em array
+  const dailyArray: DailyPayment[] = Object.entries(stats.daily).map(
+    ([date, data]) => ({
+      date,
+      ...data,
+    })
+  );
+
   const data = {
-    labels: stats.daily.map((day) =>
+    labels: dailyArray.map((day) =>
       new Date(day.date).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "2-digit",
@@ -46,7 +54,7 @@ export default function OpenPaymentsGraph({ stats }: Stats) {
       {
         label: "",
         backgroundColor: "#9BA5B7",
-        data: stats.daily.map((day) => day.sum),
+        data: dailyArray.map((day) => day.sum),
         borderRadius: 5,
         barThickness: 50,
         hoverBackgroundColor: "#00735E",

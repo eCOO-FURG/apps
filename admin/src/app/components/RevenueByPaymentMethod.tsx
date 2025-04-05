@@ -29,7 +29,7 @@ interface RevenueByMethodDaily {
 interface RevenueByMethod {
   sum: number;
   count: number;
-  daily: RevenueByMethodDaily[];
+  daily: Record<string, Omit<RevenueByMethodDaily, "date">>; // ← alterado para refletir objeto
 }
 
 interface Stats {
@@ -37,18 +37,26 @@ interface Stats {
 }
 
 export default function RevenueByPaymentMethod({ stats }: Stats) {
+  // Convertendo o objeto daily em um array
+  const dailyArray: RevenueByMethodDaily[] = Object.entries(stats.daily).map(
+    ([date, info]) => ({
+      date,
+      ...info,
+    })
+  );
+
   const data = {
-    labels: stats.daily.map((day) =>
+    labels: dailyArray.map((day) =>
       new Date(day.date).toLocaleDateString("pt-BR", {
         day: "2-digit",
         month: "2-digit",
       })
-    ), // Convertendo as datas para o formato "DD/MM"
+    ),
     datasets: [
       {
         label: "",
         backgroundColor: "#9BA5B7",
-        data: stats.daily.map((day) => day.sum),
+        data: dailyArray.map((day) => day.sum),
         borderRadius: 5,
         barThickness: 50,
         hoverBackgroundColor: "#00735E",
