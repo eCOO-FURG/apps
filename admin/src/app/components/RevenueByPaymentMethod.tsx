@@ -29,7 +29,7 @@ interface RevenueByMethodDaily {
 interface RevenueByMethod {
   sum: number;
   count: number;
-  daily: Record<string, Omit<RevenueByMethodDaily, "date">>; // ← alterado para refletir objeto
+  daily: Record<string, Omit<RevenueByMethodDaily, "date">>;
 }
 
 interface Stats {
@@ -37,7 +37,6 @@ interface Stats {
 }
 
 export default function RevenueByPaymentMethod({ stats }: Stats) {
-  // Convertendo o objeto daily em um array
   const dailyArray: RevenueByMethodDaily[] = Object.entries(stats.daily).map(
     ([date, info]) => ({
       date,
