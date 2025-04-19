@@ -8,7 +8,7 @@ import {
 import { twMerge } from "tailwind-merge";
 
 
-interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
+interface InputProps {
   error?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
   icon?: any;
   label?: string;
@@ -18,9 +18,7 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
   onChange?: (
     event: ChangeEvent<HTMLInputElement>
   ) => void | string | undefined;
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
-  value?: string | number;
-  defaultValue?: string;
+  value?: string;
   maxLength?: number;
   minLength?: number;
   step?: number;
@@ -39,9 +37,7 @@ export default function Input({
   type,
   className,
   onChange,
-  onFocus,
   value,
-  defaultValue,
   maxLength,
   minLength,
   step,
@@ -70,13 +66,10 @@ export default function Input({
       </label>
       <div className="relative w-full">
         <input
-          {...rest}
           {...register}
           className={`z-0 w-full h-12 px-3 border border-theme-primary rounded-lg font-inter font-normal box-border ${className}`}
           type={inputType}
           onChange={onChange}
-          onFocus={onFocus}
-          defaultValue={defaultValue}
           value={value}
           maxLength={maxLength}
           minLength={minLength}

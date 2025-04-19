@@ -14,7 +14,7 @@ import { isUnderConstruction } from "@shared/next/library/is-under-construction"
 import { HiOutlineInformationCircle } from "react-icons/hi";
 
 export function ProductMenu() {
-  const router = useRouter();
+  const router = useRouter()
 
   const { cycle } = useCycleProvider();
 
@@ -23,7 +23,9 @@ export function ProductMenu() {
   useEffect(() => {
     if (cycle !== null) {
       const diaAtual = new Date().getDay() + 1;
-      const { offer } = cycle;
+      const { offer } = cycle
+
+      setIsOfferingDay(false)
 
       if (Array.isArray(offer) && offer.includes(diaAtual)) {
         setIsOfferingDay(true);
@@ -42,15 +44,14 @@ export function ProductMenu() {
 
     const { id } = cycle;
 
-    localStorage.setItem(
-      "offer-products-data",
+    localStorage.setItem("offer-products-data",
       JSON.stringify({
-        cycle_id: id,
+        cycle_id: id
       })
-    );
+    )
 
-    router.push("/oferta");
-  };
+    router.push("/produtos/vender")
+  }
 
   const handleClickInfoButton = () => {};
 
@@ -77,7 +78,7 @@ export function ProductMenu() {
           disabled={!isOfferingDay || isUnderConstruction("/oferta")}
           href="/"
         >
-          Fazer uma oferta
+          Colocar a venda
         </Button>
         <Link href={"/relatorios"}>
           <Button className="w-full bg-transparent h-12 rounded-md border-[2px] border-theme-default">

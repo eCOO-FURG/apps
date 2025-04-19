@@ -17,14 +17,14 @@ interface ModalProps {
   modalActionButton?: React.ReactNode;
 }
 
-export default function Modal({
-  titleOpenModal,
-  titleContentModal,
-  contentModal,
+export default function Modal({ 
+  titleOpenModal, 
+  titleContentModal, 
+  contentModal, 
   titleConfirmModal,
   titleCloseModal,
-  bgOpenModal,
-  bgConfirmModal,
+  bgOpenModal, 
+  bgConfirmModal, 
   bgCloseModal,
   buttonOpenModal,
   isOpen: externalIsOpen,

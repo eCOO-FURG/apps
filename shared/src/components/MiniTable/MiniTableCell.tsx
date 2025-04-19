@@ -3,13 +3,11 @@ import { twMerge } from "tailwind-merge";
 
 interface MiniTableCellProps
   extends React.TdHTMLAttributes<HTMLTableCellElement> {
-  className?: string;
   children: ReactNode;
 }
 
 export default function MiniTableCell({
   children,
-  className,
   ...rest
 }: MiniTableCellProps) {
   return (
