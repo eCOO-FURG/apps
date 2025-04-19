@@ -3,25 +3,22 @@
 import ApiService from "@shared/service";
 
 export interface UpdateCatalogRequest {
-  catalog_id: string;
-  offers: {
-    id: string;
+  offer_id: string;
+  data: {
     amount?: number;
     price?: number;
     description?: string;
-    deleted?: boolean;
-  }[];
+    expires_at?: string;
+  };
 }
 
 export async function updateCatalog({
-  catalog_id,
-  offers,
+  offer_id,
+  data,
 }: UpdateCatalogRequest) {
   const response = await ApiService.PATCH({
-    url: `/catalogs/${catalog_id}`,
-    data: {
-      offers,
-    },
+    url: `/offers/${offer_id}`,
+    data,
   });
 
   return response;

@@ -25,15 +25,15 @@ export const getBagsTableColumns = ({
       key: "user",
       colSpan: 4,
       render: function renderUser(row: BagDTO) {
-        return row.user.first_name + " " + row.user.last_name;
+        return row.customer.first_name + " " + row.customer.last_name;
       },
     },
     {
       header: "Preço",
-      key: "price",
+      key: "subtotal",
       colSpan: 2,
       render: function renderPrice(row: BagDTO) {
-        return formatPrice(row.price);
+        return formatPrice(row.subtotal);
       },
     },
     {
@@ -41,7 +41,7 @@ export const getBagsTableColumns = ({
       key: "fees",
       colSpan: 2,
       render: function renderFees(row: BagDTO) {
-        return "---";
+        return formatPrice(row.fee);
       },
     },
     {
@@ -49,7 +49,7 @@ export const getBagsTableColumns = ({
       key: "shipping",
       colSpan: 2,
       render: function renderShipping(row: BagDTO) {
-        return "---";
+        return formatPrice(row.shipping);
       },
     },
     {

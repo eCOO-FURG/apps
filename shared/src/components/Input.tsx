@@ -18,7 +18,9 @@ interface InputProps {
   onChange?: (
     event: ChangeEvent<HTMLInputElement>
   ) => void | string | undefined;
-  value?: string;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  value?: string | number | Date;
+  defaultValue?: string;
   maxLength?: number;
   minLength?: number;
   step?: number;
@@ -46,6 +48,8 @@ export default function Input({
   autoComplete,
   labelClassName,
   disabled,
+  onFocus,
+  defaultValue,
   ...rest
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,7 +74,9 @@ export default function Input({
           className={`z-0 w-full h-12 px-3 border border-theme-primary rounded-lg font-inter font-normal box-border ${className}`}
           type={inputType}
           onChange={onChange}
-          value={value}
+          onFocus={onFocus}
+          defaultValue={defaultValue}
+          value={value instanceof Date ? value.toISOString().split('T')[0] : value}
           maxLength={maxLength}
           minLength={minLength}
           autoComplete={autoComplete}

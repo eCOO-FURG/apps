@@ -2,7 +2,7 @@ import GenericTable from "@shared/components/GenericTable";
 import useListBags from "@admin/hooks/useListBags";
 import usePageQueryParams from "@shared/hooks/usePageQueryParams";
 import { BagDTO } from "@shared/interfaces/dtos";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ListBagsTable() {
   const [selectedRow, setSelectedRow] = useState<BagDTO>({} as BagDTO);
@@ -31,7 +31,7 @@ export default function ListBagsTable() {
       render: (row: BagDTO) => {
         return (
           <div>
-            {`${row.user.first_name} ${row.user.last_name}`}
+            {`${row.customer.first_name} ${row.customer.last_name}`}
           </div>
         );
       }
@@ -43,7 +43,7 @@ export default function ListBagsTable() {
       render: (row: BagDTO) => {
         return (
           <div>
-            {`R$ ${row.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
+            {`R$ ${row.total.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`}
           </div>
         );
       } 

@@ -17,16 +17,20 @@ export interface BagDTO {
     | "DEFERRED";
   paid: boolean;
   open: boolean;
-  price: number;
+  total: number;
+  subtotal: number;
+  fee: number;
+  shipping: number;
   code: string;
   cycle_id: string;
   cycle: CycleDTO;
   address_id: string;
   address: AddressDTO;
-  user_id: string;
-  user: UserDTO;
+  customer_id: string;
+  customer: UserDTO;
   orders: OrderDTO[];
-  payments: PaymentDTO[];
+  payment: PaymentDTO;
+  payment_id: string | null;
   created_at: string;
   updated_at: string | null;
 }

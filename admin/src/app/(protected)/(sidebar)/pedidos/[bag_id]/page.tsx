@@ -16,32 +16,38 @@ import GenericTable from "@shared/components/GenericTable";
 import PagingButton from "@shared/components/PagingButton";
 
 import EditPaymentModal from "./components/EditPaymentModal";
+import CreatePaymentModal from "./components/CreatePaymentModal";
 
 import { OrderDTO } from "@shared/interfaces/dtos";
+import Button from "@shared/components/Button";
 
 const BagDetailsPage = () => {
   const {
     bagDetails,
     isPending,
     paymentsPage,
+    createPaymentModalIsOpen,
     paymentModalIsOpen,
     selectedPayment,
+    loadingCreatePayment,
     loadingUpdatePayment,
     nextPaymentsPage,
     prevPaymentsPage,
     navigateToBagsList,
     selectBagPayment,
+    createNewPayment,
     closePaymentModal,
     editSelectedPayment,
     updateSelectedPayment,
+    startNewPayment,
   } = useBagDetailsPage();
 
   if (!bagDetails) return null;
 
   return (
     <>
-      <div className="w-full flex flex-col gap-6">
-        <Title>Detalhes do Pedidos</Title>
+      <div className="w-full h-[105%] overflow-auto flex flex-col gap-6">
+        <Title>Detalhes dos Pedidos</Title>
         <div className="grid grid-cols-2 gap-6">
           <div>
             <h3 className="text-lg font-medium mb-2 ml-2">
@@ -67,9 +73,21 @@ const BagDetailsPage = () => {
                   <div className="flex justify-between items-center">
                     <p className="text-sm font-medium w-32">Cliente:</p>
                     <p className="flex-1">
-                      {bagDetails.user.first_name +
+                      {bagDetails.customer.first_name +
                         " " +
-                        bagDetails.user.last_name}
+                        bagDetails.customer.last_name}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm font-medium w-32">Email:</p>
+                    <p className="flex-1">
+                      {bagDetails.customer.email}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm font-medium w-32">Cpf:</p>
+                    <p className="flex-1">
+                      {bagDetails.customer.cpf}
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
@@ -91,20 +109,20 @@ const BagDetailsPage = () => {
                 <div className="flex flex-col gap-2">
                   <div className="flex justify-between items-center">
                     <p className="text-sm font-medium w-32">Preço:</p>
-                    <p className="flex-1">{formatPrice(bagDetails.price)}</p>
+                    <p className="flex-1">{formatPrice(bagDetails.subtotal)}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm font-medium w-32">Taxas:</p>
-                    <p className="flex-1">R$ --</p>
+                    <p className="flex-1">{formatPrice(bagDetails.fee)}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm font-medium w-32">Entrega:</p>
-                    <p className="flex-1">R$ --</p>
+                    <p className="flex-1">{formatPrice(bagDetails.shipping)}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm font-medium w-32">Total:</p>
                     <p className="font-semibold flex-1">
-                      {formatPrice(bagDetails.price)}
+                      {formatPrice(bagDetails.total)}
                     </p>
                   </div>
                 </div>
@@ -151,8 +169,8 @@ const BagDetailsPage = () => {
                         {farm.items.map((item, index) => (
                           <p key={index} className="text-sm">
                             {item.offer.product.pricing === "UNIT"
-                              ? `${item.offer.amount}un`
-                              : `${item.offer.amount}g`}{" "}
+                              ? `${item.amount}un`
+                              : `${item.amount}g`}{" "}
                             - {item.offer.product.name}
                           </p>
                         ))}
@@ -168,28 +186,28 @@ const BagDetailsPage = () => {
             <div className="rounded-lg bg-white lg:text-theme-primary h-72">
               {isPending && <TableSkeleton />}
 
-              {!isPending && bagDetails.payments.length === 0 && (
-                <EmptyBox type="search" />
+              {!isPending && !bagDetails.payment  && (
+                <div className="flex-grow flex flex-col h-full pt-6">
+                  <EmptyBox type="payment" />
+                  <div className="flex justify-center items-center h-full pr-18 pl-18">
+                    <Button
+                      onClick={() => startNewPayment()}
+                      className="w-full text-white justify-center rounded-md border border-transparent bg-rain-forest px-3 py-4 font-semibold h-12 flex items-center font-inter text-base leading-5.5 tracking-tight-2"
+                    >
+                      Adicionar forma de pagamento
+                    </Button>
+                  </div>
+                </div>
               )}
 
-              {!isPending && bagDetails.payments.length > 0 && (
+              {!isPending && bagDetails.payment && (
                 <GenericTable
-                  data={bagDetails.payments}
+                  data={[bagDetails.payment]}
                   columns={getBagDetailsTableColumns({
                     selectBagPayment,
                   })}
                   gridColumns={1}
                 />
-              )}
-
-              {!isPending && bagDetails.payments.length > 0 && (
-                <div className="flex justify-center items-center mt-4">
-                  <PagingButton
-                    value={paymentsPage}
-                    nextPage={nextPaymentsPage}
-                    backPage={prevPaymentsPage}
-                  />
-                </div>
               )}
             </div>
           </div>
@@ -215,6 +233,16 @@ const BagDetailsPage = () => {
           closeModal={() => closePaymentModal()}
           editPayment={editSelectedPayment}
           updatePayment={updateSelectedPayment}
+        />
+      )}
+
+      {createPaymentModalIsOpen && (
+        <CreatePaymentModal
+          isOpen={createPaymentModalIsOpen}
+          bag={bagDetails}
+          loading={loadingCreatePayment}
+          createNewPayment={createNewPayment}
+          closeModal={() => closePaymentModal()}
         />
       )}
     </>

@@ -13,6 +13,7 @@ interface ReviewOfferProps {
   amount: number;
   price: number;
   pricing: "UNIT" | "WEIGHT" | undefined;
+  expires_at: Date | undefined;
   submitAction: () => void;
   description?: string;
 }
@@ -42,6 +43,14 @@ export default function ReviewOffer(props: ReviewOfferProps) {
       header: "Preço de venda (+20%):",
       content: `${formatPrice(addTaxToPrice(props.price, 0.2))}`,
     },
+    ...(props.expires_at
+      ? [
+          {
+            header: "Validade",
+            content: new Date(props.expires_at).toLocaleDateString(),
+          },
+        ]
+      : []),
     {
       header: "Descrição:",
       content: props.description || "Sem descrição",

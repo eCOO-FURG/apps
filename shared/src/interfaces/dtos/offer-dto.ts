@@ -4,6 +4,8 @@ export interface OfferDTO {
   id: string;
   amount: number;
   price: number;
+	fee: number;
+	total: number;
   description: string | null;
   catalog_id: string;
   catalog: CatalogDTO;
@@ -11,4 +13,5 @@ export interface OfferDTO {
   product: ProductDTO;
   created_at: Date;
   updated_at: Date | null;
+  expires_at: Date | undefined;
 }

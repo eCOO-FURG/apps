@@ -2,14 +2,17 @@
 
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useRef } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useHandleError } from "@shared/hooks/useHandleError";
 import { updateProduct } from "@admin/_actions/products/PATCH/update-product";
 import { ProductDTO } from "@shared/interfaces/dtos";
-import { updateProductSchema, UpdateProductSchema } from "@admin/schemas/products";
+import {
+  updateProductSchema,
+  UpdateProductSchema,
+} from "@admin/schemas/products";
 
 interface UseUpdateProductModalProps {
   closeModal: () => void;
@@ -22,11 +25,9 @@ export default function useUpdateProductModal({
   reloadProducts,
   product,
 }: UseUpdateProductModalProps) {
-  // States
   const [isPending, startTransition] = useTransition();
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
-  // Consts
   const { handleError } = useHandleError();
 
   const {
@@ -42,17 +43,27 @@ export default function useUpdateProductModal({
     defaultValues: {
       name: product?.name ?? "",
       pricing: product?.pricing ?? "UNIT",
+      category: product?.category_id ?? "",
+      archived: product?.archived ?? false,
+      perishable: product?.perishable ?? true,
     },
   });
 
+  const isFirstRender = useRef(true);
   useEffect(() => {
-    if (product?.image) {
+    if (product?.image && isFirstRender.current) {
       setPreviewImage(product.image);
+      isFirstRender.current = false;
     }
   });
 
-  // Functions
-  const onSubmit = ({ name, pricing, image }: UpdateProductSchema) => {
+  const onSubmit = ({
+    name,
+    pricing,
+    category,
+    image,
+    perishable,
+  }: UpdateProductSchema) => {
     startTransition(async () => {
       const isValid = await trigger();
 
@@ -62,7 +73,9 @@ export default function useUpdateProductModal({
 
       if (name) dataForm.append("name", name);
       if (pricing) dataForm.append("pricing", pricing);
+      if (category) dataForm.append("category_id", category);
       if (image) dataForm.append("image", image);
+      if (perishable) dataForm.append("perishable", perishable.toString());
 
       if (product?.id) {
         updateProduct({ product_id: product.id, data: dataForm })
@@ -86,18 +99,18 @@ export default function useUpdateProductModal({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+      }
+
       setPreviewImage(URL.createObjectURL(selectedFile));
       setValue("image", selectedFile);
       trigger("image");
     }
+
+    event.target.value = "";
   };
 
-  const handleRemoveFile = () => {
-    setPreviewImage(null);
-    setValue("image", undefined);
-  };
-
-  // Returns
   return {
     register,
     setValue,
@@ -106,7 +119,6 @@ export default function useUpdateProductModal({
     isPending,
     previewImage,
     handleFileChange,
-    handleRemoveFile,
     onSubmit,
   };
 }

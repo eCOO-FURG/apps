@@ -86,8 +86,9 @@ export function useHandleError() {
           return;
         }
 
-        toast.error(`${words[0]} não encontrado.`);
-        return;
+        if (words[0] === "Catálogo" || words[0] === "Caixa") {
+          return;
+        }
       }
 
       if (genericErrorsMapper.includes(words[1])) {
@@ -104,6 +105,19 @@ export function useHandleError() {
         toast.error(`Não é possivel ${words[3]} produtos hoje.`);
         return;
       }
+
+      if (errorCode.includes("Large")) {
+        toast.error("Imagem muito grande.");
+        return;
+      }
+
+      if (errorCode.includes("<!DOCTYPE html>")) {
+        console.error("Erro inesperado:", errorCode);
+        toast.error("Erro inesperado");
+        return;
+      }
+
+      toast.error(errorCode);
     },
     [setSessionExpired]
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 
 import { FiPaperclip, FiX } from "react-icons/fi";
@@ -10,19 +11,23 @@ import ButtonV2 from "@shared/components/ButtonV2";
 import Input from "@shared/components/CustomInput";
 import SelectInput from "@shared/components/SelectInput";
 
+import { ProductDTO } from "@shared/interfaces/dtos";
+
+import { useHandleError } from "@shared/hooks/useHandleError";
+
 import useProductModal from "./index";
 import {
-  categoryOptions,
   commercializationOptions,
   perishableOptions,
+  archivedOptions,
 } from "./data";
-import { ProductDTO } from "@shared/interfaces/dtos";
+
+import { listCategories } from "@admin/_actions/categories/GET/list-categories";
 
 interface CreateProductModalProps {
   isOpen: boolean;
   closeModal: () => void;
   product: ProductDTO | null;
-  imageLoader: (args: { src: string }) => string;
   reloadProducts: () => void;
 }
 
@@ -30,8 +35,7 @@ export default function CreateProductModal({
   isOpen,
   closeModal,
   product,
-  imageLoader,
-  reloadProducts
+  reloadProducts,
 }: CreateProductModalProps) {
   const {
     register,
@@ -41,9 +45,39 @@ export default function CreateProductModal({
     isPending,
     previewImage,
     handleFileChange,
-    handleRemoveFile,
     onSubmit,
   } = useProductModal({ closeModal, reloadProducts });
+
+  const [categoryOptions, setCategoryOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const { handleError } = useHandleError();
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await listCategories({ page: 1 });
+
+        if (response.message) {
+          handleError(response.message);
+          return;
+        }
+
+        const options = response.data.map(
+          ({ id, name }: { id: string; name: string }) => ({
+            value: id,
+            label: name,
+          })
+        );
+
+        setCategoryOptions(options);
+      } catch (error) {
+        handleError("Erro ao buscar categorias.");
+      }
+    }
+
+    fetchCategories();
+  }, []);
 
   return (
     <ModalV2
@@ -53,10 +87,7 @@ export default function CreateProductModal({
       title="Cadastrar produto"
       iconClose={true}
     >
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-5"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <Input
           label="Qual o nome do produto?"
           placeholder="Morango Orgânico"
@@ -68,26 +99,49 @@ export default function CreateProductModal({
         <SelectInput
           label="Selecione a categoria do produto"
           options={categoryOptions}
-          defaultOption={categoryOptions[0]}
-          onChange={() => {}}
-          disabled
+          defaultOption={
+            categoryOptions.find(
+              (option) => option.value === product?.category.id
+            ) ?? categoryOptions[0]
+          }
+          onChange={(value) => {
+            setValue("category", value);
+          }}
         />
-
-        <div className="grid grid-cols-2 gap-4">
+        {errors.category && (
+          <p className="text-red-500 text-sm">{errors.category.message}</p>
+        )}
+        <div className="grid grid-cols-3 gap-4">
           <SelectInput
             label="Produto perecível?"
             options={perishableOptions}
-            defaultOption={perishableOptions[0]}
-            onChange={() => {}}
-            disabled
+            defaultOption={
+              perishableOptions.find(
+                (option) => option.value === product?.perishable
+              ) ?? perishableOptions[0]
+            }
+            onChange={(value) => setValue("perishable", value)}
+          />
+
+          <SelectInput
+            label="Oculto?"
+            options={perishableOptions}
+            defaultOption={
+              archivedOptions.find(
+                (option) => option.value === product?.perishable
+              ) ?? archivedOptions[0]
+            }
+            onChange={(value) => setValue("archived", value)}
           />
 
           <SelectInput
             label="Comercialização"
             options={commercializationOptions}
-            defaultOption={commercializationOptions.find(
-              (option) => option.value === product?.pricing
-            ) ?? commercializationOptions[0]}
+            defaultOption={
+              commercializationOptions.find(
+                (option) => option.value === product?.pricing
+              ) ?? commercializationOptions[0]
+            }
             onChange={(value) => setValue("pricing", value)}
           />
           {errors.pricing && (
@@ -95,7 +149,7 @@ export default function CreateProductModal({
           )}
         </div>
 
-        <div className="pb-5">
+        <div>
           <label
             htmlFor="file-upload"
             className="text-sm text-gray-600 mb-2 inline-flex items-center cursor-pointer"
@@ -114,28 +168,27 @@ export default function CreateProductModal({
             accept="image/png, image/jpeg"
           />
           {errors.image?.message && (
-            <p className="text-red-500 text-sm mt-1">{String(errors.image.message)}</p>
+            <p className="text-red-500 text-sm mt-1">
+              {String(errors.image.message)}
+            </p>
           )}
         </div>
 
-        {(previewImage) && (
+        {previewImage && (
           <div className="relative w-18 h-18">
             <Image
               src={previewImage}
               alt="Pré-visualização"
-              loader={imageLoader}
               width={72}
               height={72}
               className="w-full h-full object-contain rounded-md border"
             />
             <button
               type="button"
-              onClick={() => {
-                handleRemoveFile();
-              }}
-              className="absolute top-0 right-0 bg-error text-white rounded-full w-5 h-5 flex items-center justify-center"
+              onClick={() => document.getElementById("file-upload")?.click()}
+              className="absolute -top-3 -right-3 bg-theme-primary text-white rounded-full w-6 h-6 flex items-center justify-center ml-auto"
             >
-              <FiX size={12} />
+              <FiPaperclip size={12} />
             </button>
           </div>
         )}

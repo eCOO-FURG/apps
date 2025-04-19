@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { HiOutlineShoppingCart } from "react-icons/hi";
+
 
 export default function Header() {
   const pathname = usePathname();
@@ -19,9 +22,11 @@ export default function Header() {
   const mapPath: any = {
     inicio: { title: "Pesquisa de Produtos", back: null },
     produtores: { title: "Produtores", back: "/inicio" },
+    categorias: { title: "Categorias", back: "/inicio" },
     produtor: { title: data_title, back: "/produtores" },
     ofertas: { title: data_title, back: "/produtores" },
-    carrinho: { title: "Carrinho", back: "/produtores" },
+    'ofertas-categoria': { title: data_title, back: "/categorias" },
+    carrinho: { title: "Carrinho", back: "/inicio" },
   };
 
   const title = mapPath[path]?.title;
@@ -34,13 +39,7 @@ export default function Header() {
       {linkBack ? (
         <div className="flex items-center justify-center overflow-hidden w-10 h-10 ml-3 bg-theme-primary rounded-full">
           <Link href={linkBack}>
-            <Image
-              src="/back.png"
-              alt="back"
-              className="h-3 w-4 object-cover"
-              width={100}
-              height={100}
-            />
+            <IoMdArrowRoundBack className="text-white object-cover" style={{ height: '20px', width: '20px' }} />          
           </Link>
         </div>
       ) : (
@@ -52,13 +51,7 @@ export default function Header() {
 
       <div className="relative flex items-center justify-center w-10 h-10 mr-3  bg-theme-primary rounded-full">
         <Link href={"/carrinho"}>
-          <Image
-            src="/cart.png"
-            alt="cart"
-            className="h-4 w-4 object-cover"
-            width={100}
-            height={100}
-          />
+          <HiOutlineShoppingCart className="text-white object-cover" style={{ height: '20px', width: '20px' }} />
         </Link>
 
         {cart.length > 0 ? (

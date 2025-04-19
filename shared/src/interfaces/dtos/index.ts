@@ -8,8 +8,8 @@ import { OfferDTO } from "./offer-dto";
 import { OrderDTO } from "./order-dto";
 import { PaymentDTO } from "./payment-dto";
 import { ProductDTO } from "./product-dto";
+import { CategoryDTO } from "./product-dto";
 import { UserDTO } from "./user-dto";
-
 export {
   type AddressDTO,
   type BagDTO,
@@ -21,5 +21,6 @@ export {
   type OrderDTO,
   type PaymentDTO,
   type ProductDTO,
-  type UserDTO,
+  type CategoryDTO,
+  type UserDTO
 };

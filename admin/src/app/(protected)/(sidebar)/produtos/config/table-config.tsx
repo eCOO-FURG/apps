@@ -1,13 +1,11 @@
 import Image from "next/image"
 
-import { LuPencil } from "react-icons/lu";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { LuEye, LuEyeOff, LuPencil } from "react-icons/lu";
 
 import { ModalKeys } from "..";
 import { ProductDTO } from "@shared/interfaces/dtos"
 
 export function getProductTableColumns(
-  imageLoader: (args: { src: string }) => string,
   toggleModal: (modalName: ModalKeys, product?: ProductDTO) => void
 ) {
   return [
@@ -18,7 +16,6 @@ export function getProductTableColumns(
       render: function renderImage(row: ProductDTO) {
         return row.image ? (
           <Image
-            loader={imageLoader}
             src={row.image}
             alt={row.name}
             width={50}
@@ -36,8 +33,8 @@ export function getProductTableColumns(
       header: "Categoria",
       key: "category",
       colSpan: 4,
-      render: function renderCategory() {
-        return "---"
+      render: function renderCategory(row: ProductDTO) {
+        return row.category.name;
       },
     },
     {
@@ -45,21 +42,37 @@ export function getProductTableColumns(
       key: "pricing",
       colSpan: 2,
       render: function renderPricing(row: ProductDTO) {
-        return row.pricing === "WEIGHT" ? "kilo" : "unidade";
+        return row.pricing === "WEIGHT" ? "Kilo" : "Unidade";
       },
     },
     {
       header: "Perecivel",
       key: "perishable",
       colSpan: 2,
-      render: function renderCategory() {
-        return "---"
+      render: function renderCategory(row: ProductDTO) {
+        return row.perishable ? "Sim" : "Não";
+      },
+    },
+    {
+      header: "",
+      key: "hide",
+      colSpan: 0.5,
+      render: function renderEdit(row: ProductDTO) {
+        return (
+            <button
+              type="button"
+              onClick={() => toggleModal("isArchivedProductModal", row)}
+              className="flex justify-center items-center hover:text-rain-forest transition-colors delay-150"
+            >
+              {row.archived ? <LuEyeOff size={20} /> : <LuEye size={20} />}
+            </button>
+        );
       },
     },
     {
       header: "",
       key: "edit",
-      colSpan: 1,
+      colSpan: 0.5,
       render: function renderEdit(row: ProductDTO) {
         return (
           <button
@@ -68,22 +81,6 @@ export function getProductTableColumns(
             className="flex justify-center items-center hover:text-rain-forest transition-colors delay-150"
           >
             <LuPencil size={20} />
-          </button>
-        );
-      },
-    },
-    {
-      header: "",
-      key: "delete",
-      colSpan: 1,
-      render: function renderDelete(row: ProductDTO) {
-        return (
-          <button
-            type="button"
-            onClick={() => toggleModal("isOpenDeleteProductModal", row)}
-            className="flex justify-center items-center"
-          >
-            <FaRegTrashAlt className="hover:text-error transition-colors delay-150" size={20} />
           </button>
         );
       },

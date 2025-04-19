@@ -78,7 +78,7 @@ export default function SendBagMiniTable() {
             }
             selectStatus={
               currentStatus !== "SEPARATED" ? (
-                <div className="w-full">
+                <div className="w-[110px]">
                   <SelectInput
                     placeholder="Selecione o status"
                     options={bagStatusOptions}
@@ -86,14 +86,16 @@ export default function SendBagMiniTable() {
                       setBagStatus(value);
                       setIsStatusChanged(value !== currentStatus);
                     }}
-                    defaultOption={bagStatusOptions.find(
-                      (option) => option.value === bag.status
+                    defaultOption={bagStatusOptions.find((option) =>
+                      isStatusChanged
+                        ? bagStatus === option.value
+                        : option.value === bag.status
                     )}
                   />
                 </div>
               ) : undefined
             }
-            name={`${bag.user.first_name} ${bag.user.last_name}`}
+            name={`${bag.customer.first_name} ${bag.customer.last_name}`}
             time={getNextSaturdayDate()}
             content={<GroupOrder orders={bag.orders} />}
           />
@@ -113,7 +115,7 @@ export default function SendBagMiniTable() {
                   handleStatusBag(bag.id, "DISPATCHED");
                 }}
               />
-            ) : bag.status && isStatusChanged ? (
+            ) : bag.status && isStatusChanged && bagStatus !== bag.status ? (
               <Modal
                 titleOpenModal="Salvar"
                 titleContentModal="Você tem certeza?"
@@ -131,7 +133,19 @@ export default function SendBagMiniTable() {
                   handleStatusBag(bag.id, bagStatus as BagStatus["send"]);
                 }}
               />
-            ) : null}
+            ) : (
+              <>
+                <span className="text-center mt-6 text-slate-gray">
+                  {`Sacola já ${bagStatusOptions
+                    .find((option) =>
+                      isStatusChanged
+                        ? bagStatus === option.value
+                        : option.value === bag.status
+                    )
+                    ?.label.toLowerCase()}`}
+                </span>
+              </>
+            )}
           </div>
         </>
       )}
