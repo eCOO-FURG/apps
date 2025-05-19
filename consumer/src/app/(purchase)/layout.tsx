@@ -9,7 +9,7 @@ export default function Produtores({ children }: React.PropsWithChildren) {
   return (
     <TelegramProvider>
       <CartProvider>
-        <div className="w-full h-screen overflow-hidden">
+        <div className="w-full h-screen overflow-hidden bg-white">
           <Header />
           {children}
         </div>
