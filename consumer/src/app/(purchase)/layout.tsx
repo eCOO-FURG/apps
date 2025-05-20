@@ -5,7 +5,6 @@ import Header from "../_components/header";
 import { TelegramProvider } from "@consumer/context/telegram";
 
 export default function Produtores({ children }: React.PropsWithChildren) {
-  console.log("ProdutoresLayout carregado!");
   return (
     <TelegramProvider>
       <CartProvider>
