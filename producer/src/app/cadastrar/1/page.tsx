@@ -105,11 +105,11 @@ export default function FirstStep() {
           label="Email"
           placeholder="Insira o seu email"
           type="text"
-          errorMessage={
-            emailValue && hasUppercase
-              ? 'O e-mail deve conter apenas letras minúsculas'
-              : errors.email?.message  
-          }
+          errorMessage={errors.email?.message}
+              onChange={(e) => {
+            e.target.value = e.target.value.toLowerCase();
+          }}
+          
         />
       </div>
       <div className="w-full flex gap-3 mb-3">
