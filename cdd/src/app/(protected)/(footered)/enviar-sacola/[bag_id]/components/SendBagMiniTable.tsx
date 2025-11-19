@@ -38,7 +38,7 @@ export default function SendBagMiniTable() {
     bag_id: bag_id.toString(),
     page,
   });
-
+  
   const bagStatusOptions = bag && bag.shipping > 0
     ? [
         { value: "DISPATCHED", label: "Retirada" },
