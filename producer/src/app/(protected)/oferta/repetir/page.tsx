@@ -44,6 +44,7 @@ export default function Home() {
         ...offerData,
         amount: convertOfferAmount(offerData.amount, offerData.product.pricing),
         price: offerData.price,
+        recurring: offerData.closes_at === null ? "true" : "false",
       });
       setCurrentStep(1);
       sessionStorage.removeItem("edit-offer-data");
@@ -175,6 +176,7 @@ export default function Home() {
             (currentStep === 6 && offer.product.perishable === false) ? (
               <InputRecurrence
                 handleNextStep={handleNextStep}
+                isRecurrent={offer.recurring}
                 setRecurrence={(recurring) =>
                   setOffer({ ...offer, recurring: String(recurring) })
                 }
