@@ -84,7 +84,17 @@ export default function OffersList({
       const cycleStartDay = cycleStartReference.getDay();
       cycleStartReference.setDate(cycleStartReference.getDate() - cycleStartDay);
       cycleStartReference.setHours(0, 0, 0, 0);
-      const formattedSinceDDMMYYYY = cycleStartReference
+
+      const periodSince = new Date(cycleStartReference);
+      const periodBefore = new Date(cycleStartReference);
+
+      if (type === "last") {
+        periodSince.setDate(periodSince.getDate() - 7);
+      } else {
+        periodBefore.setDate(periodBefore.getDate() + 7);
+      }
+
+      const formattedSinceDDMMYYYY = periodSince
         .toLocaleDateString('pt-BR', {
           day: '2-digit',
           month: '2-digit',
@@ -92,9 +102,7 @@ export default function OffersList({
         })
         .replace(/\//g, '-');
 
-      const beforeReference = new Date(cycleStartReference);
-      beforeReference.setDate(beforeReference.getDate() + 7);
-      const formattedBeforeDDMMYYYY = beforeReference
+      const formattedBeforeDDMMYYYY = periodBefore
         .toLocaleDateString('pt-BR', {
           day: '2-digit',
           month: '2-digit',
@@ -128,12 +136,15 @@ export default function OffersList({
                 page: 1,
               });
 
-              const currentProductIds = currentResponse.data?.offers?.product?.id
-                ? [currentResponse.data.offers.product.id]
-                : [];
-                    dataOffers.offers = dataOffers.offers.filter(
-                (offer: any) => !currentProductIds.includes(offer.product?.id)
-                    );
+              const currentProductIds = new Set(
+                (currentResponse.data?.offers ?? []).map(
+                  (offer: OfferDTO) => offer.product?.id
+                )
+              );
+
+              dataOffers.offers = dataOffers.offers.filter(
+                (offer: OfferDTO) => !currentProductIds.has(offer.product?.id)
+              );
             }
             setCatalogId(dataOffers.id);
             setOffers((prevOffers) => [...prevOffers, ...dataOffers.offers]);
