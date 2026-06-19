@@ -26,6 +26,8 @@ interface OffersListProps extends React.HTMLAttributes<HTMLDivElement> {
   notFoundMessage: string;
   isOfferingDay: boolean;
   filterDuplicatesWithCurrent?: boolean; 
+  revision?: number;
+  onOfferDeleted?: () => void;
 }
 
 export default function OffersList({
@@ -34,6 +36,8 @@ export default function OffersList({
   isOfferingDay,
   notFoundMessage,
   filterDuplicatesWithCurrent = false,
+  revision = 0,
+  onOfferDeleted,
   ...rest
 }: OffersListProps) {
   const [offers, setOffers] = useState<OfferDTO[]>([] as OfferDTO[]);
@@ -66,6 +70,12 @@ export default function OffersList({
   };
   fetchFarms();
 }, [cycle, handleError]);
+
+  useEffect(() => {
+    setOffers([]);
+    setPage(1);
+    setHasMore(true);
+  }, [revision]);
 
   useEffect(() => {
     if (!cycle) {
@@ -159,7 +169,7 @@ export default function OffersList({
       }
     };
     fetchListOffers();
-  }, [cycle, handleError, type, farm_id, page]);
+  }, [cycle, handleError, type, farm_id, page, revision]);
 
   const loadMore = useCallback(() => {
     if (!isLoading && hasMore) {
@@ -183,6 +193,7 @@ export default function OffersList({
   const onDeleteCard = (offerId: string) => {
     const newOffers = offers?.filter((offer) => offer.id !== offerId);
     setOffers(newOffers);
+    onOfferDeleted?.();
   };
 
   return (
