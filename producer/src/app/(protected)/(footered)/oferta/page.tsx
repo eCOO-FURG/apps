@@ -11,6 +11,7 @@ export default function Home() {
   const { cycle } = useCycleProvider();
 
   const [isOfferingDay, setIsOfferingDay] = useState<boolean>(false);
+  const [offersRevision, setOffersRevision] = useState(0);
   
     useEffect(() => {
       if (cycle !== null) {
@@ -43,6 +44,8 @@ export default function Home() {
           className="h-3/5"
           notFoundMessage="Nenhuma oferta encontrada! Faça uma nova oferta."
           isOfferingDay={isOfferingDay}
+          revision={offersRevision}
+          onOfferDeleted={() => setOffersRevision((revision) => revision + 1)}
         />
         <OffersList
           title="Ofertas Anteriores"
@@ -51,6 +54,7 @@ export default function Home() {
           notFoundMessage="Não há ofertas anteriores."
           isOfferingDay={isOfferingDay}
           filterDuplicatesWithCurrent={true}
+          revision={offersRevision}
         />
         
       </div>
