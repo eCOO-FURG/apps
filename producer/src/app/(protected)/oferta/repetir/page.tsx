@@ -21,6 +21,14 @@ import useCreateOffer from "@producer/hooks/catalogs/useCreateOffer";
 import Loader from "@shared/components/Loader";
 import { OfferDTO } from "@shared/interfaces/dtos";
 
+function inferRecurring(offer: OfferDTO) {
+  if (offer.recurring === "true" || offer.recurring === "false") {
+    return offer.recurring;
+  }
+
+  return offer.closes_at === null ? "true" : "false";
+}
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -44,7 +52,7 @@ export default function Home() {
         ...offerData,
         amount: convertOfferAmount(offerData.amount, offerData.product.pricing),
         price: offerData.price,
-        recurring: offerData.closes_at === null ? "true" : "false",
+        recurring: inferRecurring(offerData),
       });
       setCurrentStep(1);
       sessionStorage.removeItem("edit-offer-data");

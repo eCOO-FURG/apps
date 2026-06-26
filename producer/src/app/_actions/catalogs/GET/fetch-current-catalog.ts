@@ -18,7 +18,7 @@ export async function fetchCurrentCatalog({
 
   params.append("page", page.toString());
 
-  params.append("available", "CYCLE");
+  params.append("available", "CYCLE_WITH_SCHEDULED");
 
   if (since) params.append("since", since)
 
