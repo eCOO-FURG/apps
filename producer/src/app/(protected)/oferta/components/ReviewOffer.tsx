@@ -18,7 +18,7 @@ interface ReviewOfferProps {
   submitAction: () => void;
   description?: string;
   comment?: string;
-  closes_at: Date
+  closes_at: Date | null
   recurring?: string;
 }
 

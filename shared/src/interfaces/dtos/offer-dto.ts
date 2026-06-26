@@ -11,7 +11,7 @@ export interface OfferDTO {
   expires_at: Date | undefined;
   active: boolean;
   opens_at: Date;
-  closes_at: Date;
+  closes_at: Date | null;
   farm_id: string;
   farm: FarmDTO;
   catalog_id: string;
